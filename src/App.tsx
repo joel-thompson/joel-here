@@ -1,17 +1,25 @@
 import { useState } from "react";
 // import reactLogo from "./assets/react.svg";
 // import viteLogo from "/vite.svg";
+import Button from "@mui/material/Button";
+import CssBaseline from "@mui/material/CssBaseline";
+import { AboutMe } from "./components/AboutMe";
 
 function App() {
   const [count, setCount] = useState(0);
 
   return (
     <>
-      <h1>Joel Here</h1>
+      <CssBaseline />
 
-      <button onClick={() => setCount((count) => count + 1)}>
+      <AboutMe />
+
+      <Button
+        variant="contained"
+        onClick={() => setCount((count) => count + 1)}
+      >
         count is {count}
-      </button>
+      </Button>
     </>
   );
 }
