@@ -1,25 +1,24 @@
-import { useState } from "react";
 // import reactLogo from "./assets/react.svg";
 // import viteLogo from "/vite.svg";
-import Button from "@mui/material/Button";
+
 import CssBaseline from "@mui/material/CssBaseline";
 import { AboutMe } from "./components/AboutMe";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
+
+const darkTheme = createTheme({
+  palette: {
+    mode: "dark",
+  },
+});
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
     <>
-      <CssBaseline />
+      <ThemeProvider theme={darkTheme}>
+        <CssBaseline />
 
-      <AboutMe />
-
-      <Button
-        variant="contained"
-        onClick={() => setCount((count) => count + 1)}
-      >
-        count is {count}
-      </Button>
+        <AboutMe />
+      </ThemeProvider>
     </>
   );
 }
