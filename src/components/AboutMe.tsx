@@ -22,12 +22,9 @@ export const AboutMe = () => {
         Software Enginner
       </Typography>
       <Typography variant="body1" paragraph>
-        Hi! I'm a passionate web developer with experience in building modern
-        and responsive web applications. I enjoy working with React and
-        Material-UI to create intuitive user interfaces.
-      </Typography>
-      <Typography variant="body1">
-        Let's connect and build something amazing together!
+        Hello! I'm software engineer with experience in JavaScript and
+        TypeScript, specializing in React and Next.js for frontend work. I also
+        have backend experience using Ruby on Rails and Go.
       </Typography>
 
       <Button
@@ -39,6 +36,17 @@ export const AboutMe = () => {
         sx={{ marginTop: theme.spacing(2) }}
       >
         Connect on LinkedIn
+      </Button>
+
+      <Button
+        variant="contained"
+        color="primary"
+        href="https://github.com/joel-thompson/joel-here"
+        target="_blank"
+        rel="noopener noreferrer"
+        sx={{ marginTop: theme.spacing(2), marginLeft: theme.spacing(2) }}
+      >
+        View this site's code
       </Button>
     </Paper>
   );
