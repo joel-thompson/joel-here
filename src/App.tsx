@@ -12,7 +12,6 @@ import { Box } from "@mui/material";
 const OuterApp = () => {
   return (
     <DarkModeProvider>
-      <DarkModeToggleWithLabel />
       <App />
     </DarkModeProvider>
   );
@@ -27,16 +26,15 @@ const App = () => {
   });
 
   return (
-    <Box sx={{padding: '2rem'}}>
-      <ThemeProvider theme={darkTheme}>
-        <CssBaseline />
+    <ThemeProvider theme={darkTheme}>
+      <CssBaseline />
 
-        
-
+      <DarkModeToggleWithLabel />
+      <Box sx={{ padding: "2rem" }}>
         <AboutMe />
-      </ThemeProvider>
-    </Box>
+      </Box>
+    </ThemeProvider>
   );
-}
+};
 
 export default OuterApp;

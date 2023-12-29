@@ -4,9 +4,9 @@ import { DarkModeButton } from "./DarkModeButton"
 export const DarkModeToggleWithLabel = () => {
   const theme = useTheme();
   return (
-    <Stack direction="row" alignItems={'center'} flexBasis={'content'} sx={{backgroundColor: theme.palette.primary.light}}>
+    <Stack direction="row" alignItems={'center'} flexBasis={'content'} sx={{backgroundColor: theme.palette.primary.dark}}>
       <DarkModeButton />
-      <Typography>Dark Mode</Typography>
+      <Typography sx={{color: theme.palette.background.default}} >Dark Mode</Typography>
     </Stack>
   );
 }
