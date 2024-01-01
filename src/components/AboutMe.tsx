@@ -36,7 +36,7 @@ export const AboutMe = () => {
         href="https://www.linkedin.com/in/joel-thompson-5485b824/"
         target="_blank"
         rel="noopener noreferrer"
-        sx={{ marginTop: theme.spacing(2) }}
+        sx={{ marginTop: theme.spacing(2), marginRight: theme.spacing(2) }}
         startIcon={<LinkedInIcon />}
       >
         Connect on LinkedIn
@@ -48,7 +48,7 @@ export const AboutMe = () => {
         href="https://github.com/joel-thompson/joel-here"
         target="_blank"
         rel="noopener noreferrer"
-        sx={{ marginTop: theme.spacing(2), marginLeft: theme.spacing(2) }}
+        sx={{ marginTop: theme.spacing(2) }}
         startIcon={<GitHubIcon />}
       >
         View this site's code
