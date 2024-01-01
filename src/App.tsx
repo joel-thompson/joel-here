@@ -5,7 +5,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { useContext } from "react";
 import { DarkModeContext, DarkModeProvider } from "./contexts/DarkModeContext";
-import { DarkModeToggleWithLabel } from "./components/DarkModeToggleWithLabel";
+import { TopNav } from "./components/TopNav";
 import { Box } from "@mui/material";
 import { Outlet } from "react-router-dom";
 // import { purple } from "@mui/material/colors";
@@ -37,7 +37,7 @@ const App = () => {
     <ThemeProvider theme={darkMode ? darkTheme : theme}>
       <CssBaseline />
 
-      <DarkModeToggleWithLabel />
+      <TopNav />
       <Box sx={{ padding: "2rem" }}>
         <Outlet />
       </Box>
