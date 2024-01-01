@@ -8,12 +8,14 @@ export const TopNav = () => {
       direction="row"
       alignItems={"center"}
       flexBasis={"content"}
-      sx={{ backgroundColor: theme.palette.primary.dark }}
+      sx={{
+        backgroundColor: theme.palette.primary.dark,
+      }}
       // temporary divider until I make a better one
       divider={
         <Typography
           sx={{
-            color: theme.palette.background.default,
+            color: theme.palette.background.default, // make the text color the same as the background
             marginLeft: theme.spacing(2),
             marginRight: theme.spacing(2),
           }}
