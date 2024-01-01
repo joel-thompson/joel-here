@@ -4,6 +4,8 @@ import Typography from "@mui/material/Typography";
 import { useTheme } from "@mui/material/styles";
 import joelAvatar from "../assets/joel-avatar.jpeg";
 import Button from "@mui/material/Button";
+import LinkedInIcon from "@mui/icons-material/LinkedIn";
+import GitHubIcon from "@mui/icons-material/GitHub";
 
 export const AboutMe = () => {
   const theme = useTheme();
@@ -34,6 +36,7 @@ export const AboutMe = () => {
         target="_blank"
         rel="noopener noreferrer"
         sx={{ marginTop: theme.spacing(2) }}
+        startIcon={<LinkedInIcon />}
       >
         Connect on LinkedIn
       </Button>
@@ -45,6 +48,7 @@ export const AboutMe = () => {
         target="_blank"
         rel="noopener noreferrer"
         sx={{ marginTop: theme.spacing(2), marginLeft: theme.spacing(2) }}
+        startIcon={<GitHubIcon />}
       >
         View this site's code
       </Button>

@@ -22,6 +22,7 @@ const App = () => {
   const darkTheme = createTheme({
     palette: {
       mode: darkMode ? "dark" : "light",
+      // secondary: "#ffffff"
     },
   });
 
@@ -31,6 +32,7 @@ const App = () => {
 
       <DarkModeToggleWithLabel />
       <Box sx={{ padding: "2rem" }}>
+        {/* routing here */}
         <AboutMe />
       </Box>
     </ThemeProvider>
