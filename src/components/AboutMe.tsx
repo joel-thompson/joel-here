@@ -11,7 +11,7 @@ export const AboutMe = () => {
   const theme = useTheme();
 
   return (
-    <Paper variant="outlined" elevation={3} sx={{ padding: theme.spacing(3) }}>
+    <Paper variant="outlined" elevation={0} sx={{ padding: theme.spacing(3) }}>
       <Avatar
         alt="Joel Thompson"
         src={joelAvatar}
