@@ -7,8 +7,28 @@ import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import ErrorPage from "./error-page.tsx";
+import { AboutMe } from "./components/AboutMe.tsx";
+import { Basic } from "./components/Basic.tsx";
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <App />,
+    errorElement: <ErrorPage />,
+    children: [
+      { index: true, element: <AboutMe /> },
+      {
+        path: "basic/:basicId",
+        element: <Basic />,
+      },
+    ],
+  },
+]);
+
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <App />
+    <RouterProvider router={router} />
   </React.StrictMode>
 );
