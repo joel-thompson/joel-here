@@ -26,7 +26,8 @@ export const AboutMe = () => {
       <Typography variant="body1" paragraph>
         Hello! I'm software engineer with experience in JavaScript and
         TypeScript, specializing in React and Next.js for frontend work. I also
-        have backend experience using Ruby on Rails and Go.
+        enjoy working on backend projects. More recently working in Go, and have
+        spent a lot of time working in Ruby on Rails.
       </Typography>
 
       <Button
