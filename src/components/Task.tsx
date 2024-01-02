@@ -1,4 +1,5 @@
 import { Draggable } from "@hello-pangea/dnd";
+import { Box } from "@mui/material";
 
 export interface TaskType {
   id: string;
@@ -9,13 +10,13 @@ export const Task = ({ task, index }: { task: TaskType; index: number }) => {
   return (
     <Draggable draggableId={task.id} index={index}>
       {(provided) => (
-        <div
+        <Box
           ref={provided.innerRef}
           {...provided.draggableProps}
           {...provided.dragHandleProps}
         >
           {task.content}
-        </div>
+        </Box>
       )}
     </Draggable>
   );
