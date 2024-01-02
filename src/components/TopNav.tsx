@@ -1,5 +1,6 @@
-import { Stack, Typography, useTheme } from "@mui/material";
+import { Link, Stack, Typography, useTheme } from "@mui/material";
 import { DarkModeButtonWithLabel } from "./DarkModeButton";
+import { Link as RouterLink } from "react-router-dom";
 
 export const TopNav = () => {
   const theme = useTheme();
@@ -25,6 +26,21 @@ export const TopNav = () => {
       }
     >
       <DarkModeButtonWithLabel />
+      <Link
+        color={theme.palette.background.default}
+        component={RouterLink}
+        to="/"
+      >
+        Home
+      </Link>
+
+      <Link
+        color={theme.palette.background.default}
+        component={RouterLink}
+        to="/todo"
+      >
+        To Do List
+      </Link>
     </Stack>
   );
 };
