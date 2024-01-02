@@ -11,6 +11,7 @@ import App from "./App.tsx";
 import ErrorPage from "./error-page.tsx";
 import { AboutMe } from "./components/AboutMe.tsx";
 import { Basic } from "./components/Basic.tsx";
+import { ToDoList } from "./components/ToDoList.tsx";
 
 const router = createBrowserRouter([
   {
@@ -22,6 +23,10 @@ const router = createBrowserRouter([
       {
         path: "basic/:basicId",
         element: <Basic />,
+      },
+      {
+        path: "todo",
+        element: <ToDoList />,
       },
     ],
   },
