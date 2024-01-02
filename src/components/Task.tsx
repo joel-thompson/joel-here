@@ -11,6 +11,7 @@ export const Task = ({ task, index }: { task: TaskType; index: number }) => {
     <Draggable draggableId={task.id} index={index}>
       {(provided) => (
         <Box
+          sx={{ ":hover": { cursor: "grab" } }}
           ref={provided.innerRef}
           {...provided.draggableProps}
           {...provided.dragHandleProps}

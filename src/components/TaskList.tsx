@@ -7,7 +7,6 @@ export const TaskList = ({ tasks }: { tasks: TaskType[] }) => {
     <Droppable droppableId="tasks">
       {(provided) => (
         <Box
-          sx={{ cursor: "grab" }}
           {...provided.droppableProps}
           ref={provided.innerRef}
         >
