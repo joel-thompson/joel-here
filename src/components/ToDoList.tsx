@@ -13,9 +13,9 @@ export const ToDoList = () => {
   ]);
 
   const [item, setItem] = useState("");
+  const trimmed = item.trim();
 
   const handleAdd = () => {
-    const trimmed = item.trim();
     if (trimmed === "") return;
     setTasks([...tasks, { id: `task-${tasks.length + 1}`, content: trimmed }]);
     setItem("");
@@ -23,7 +23,7 @@ export const ToDoList = () => {
 
   const removeTask = (id: string) => {
     setTasks(tasks.filter((task) => task.id !== id));
-  }
+  };
 
   const onDragEnd = (result: DropResult) => {
     const { destination, source } = result;
@@ -55,6 +55,11 @@ export const ToDoList = () => {
         sx={{ marginBottom: theme.spacing(4) }}
       >
         <TextField
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              handleAdd();
+            }
+          }}
           value={item}
           label="Item to add"
           variant="standard"
@@ -62,7 +67,12 @@ export const ToDoList = () => {
             setItem(v.target.value);
           }}
         />
-        <Button onClick={handleAdd} color="primary" variant="contained">
+        <Button
+          disabled={trimmed === ""}
+          onClick={handleAdd}
+          color="primary"
+          variant="contained"
+        >
           Add
         </Button>
       </Stack>
