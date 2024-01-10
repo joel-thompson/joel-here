@@ -3,14 +3,21 @@ import { useState } from "react";
 import { DragDropContext, DropResult } from "@hello-pangea/dnd";
 import { TaskList } from "./TaskList";
 import { Box, Button, Stack, TextField, useTheme } from "@mui/material";
+import { useLocalStorage } from "@uidotdev/usehooks";
 
 export const ToDoList = () => {
   const theme = useTheme();
-  const [tasks, setTasks] = useState([
+
+  const initialTasks = [
     { id: "task-1", content: "Task 1" },
     { id: "task-2", content: "Task 2" },
-    // Add more tasks here
-  ]);
+  ];
+
+  const [tasks, setTasks] = useLocalStorage("to-do-list", initialTasks);
+
+  const resetTasks = () => {
+    setTasks(initialTasks);
+  };
 
   const [item, setItem] = useState("");
   const trimmed = item.trim();
@@ -72,8 +79,12 @@ export const ToDoList = () => {
           onClick={handleAdd}
           color="primary"
           variant="contained"
+          sx={{ marginRight: theme.spacing(4) }}
         >
           Add
+        </Button>
+        <Button onClick={resetTasks} color="warning" variant="outlined">
+          Reset to initial state
         </Button>
       </Stack>
       <DragDropContext onDragEnd={onDragEnd}>
