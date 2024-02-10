@@ -12,6 +12,7 @@ import ErrorPage from "./error-page.tsx";
 import { AboutMe } from "./components/AboutMe.tsx";
 import { Basic } from "./components/Basic.tsx";
 import { ToDoList } from "./components/ToDoList.tsx";
+import { StoryWriter } from "./components/StoryWriter.tsx";
 
 const router = createBrowserRouter([
   {
@@ -27,6 +28,10 @@ const router = createBrowserRouter([
       {
         path: "todo",
         element: <ToDoList />,
+      },
+      {
+        path: "story-writer",
+        element: <StoryWriter />,
       },
     ],
   },
