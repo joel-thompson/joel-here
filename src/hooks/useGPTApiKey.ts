@@ -8,3 +8,7 @@ export const useGPTApiKey = () => {
 
   return { apiKey, setApiKey };
 };
+
+export const getGPTApiKey = () => {
+  return localStorage.getItem("gpt-api-key");
+}
