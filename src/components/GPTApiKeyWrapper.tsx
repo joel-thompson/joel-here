@@ -50,7 +50,7 @@ const GPTApiKeyWrapper: React.FC<GPTApiKeyWrapperProps> = ({ children }) => {
     <>
       <Button
         onClick={() => setApiKey(null)}
-        color="primary"
+        color="error"
         variant="contained"
         sx={{ marginBottom: theme.spacing(4) }}
       >

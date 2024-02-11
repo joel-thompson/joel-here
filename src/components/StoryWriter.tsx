@@ -1,7 +1,16 @@
 import GPTApiKeyWrapper from "./GPTApiKeyWrapper";
-import React, { useState } from "react";
+import { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { useGPTApiKey } from "../hooks/useGPTApiKey";
+import {
+  Box,
+  Button,
+  Stack,
+  TextField,
+  Typography,
+  useTheme,
+} from "@mui/material";
+import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
 
 export const StoryWriter = () => {
   return (
@@ -45,7 +54,7 @@ const fetchStory = async ({
         },
         {
           role: "user",
-          content: prompt,
+          content: prompt.trim(),
         },
       ],
     }),
@@ -69,6 +78,7 @@ const fetchStory = async ({
 };
 
 const WritingAssistant = () => {
+  const theme = useTheme();
   const [prompt, setPrompt] = useState<string>("");
   const mutation = useMutation({
     mutationFn: fetchStory,
@@ -76,32 +86,48 @@ const WritingAssistant = () => {
 
   const { apiKey } = useGPTApiKey();
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setPrompt(e.target.value);
-  };
-
   const handleSubmit = () => {
     mutation.mutate({ prompt, apiKey });
   };
 
   return (
-    <div>
-      <textarea
+    <Stack>
+      <TextField
+        multiline
         value={prompt}
-        onChange={handleInputChange}
+        onChange={(e) => {
+          setPrompt(e.target.value);
+        }}
         placeholder="Enter your story idea, plot point, or character description here..."
-        rows={4}
-        cols={50}
+        minRows={8}
+        maxRows={16}
+        sx={{
+          width: "50%",
+        }}
       />
-      <br />
-      <button onClick={handleSubmit} disabled={mutation.isPending}>
-        {mutation.isPending ? "Generating..." : "Generate Story"}
-      </button>
-      <div>
-        <h3>Generated Story:</h3>
-        <p>{mutation.data ?? "Your story will appear here..."}</p>
-        {mutation.isError && <p>Error: {mutation.error.message}</p>}
-      </div>
-    </div>
+
+      <Box>
+        <Button
+          onClick={handleSubmit}
+          disabled={mutation.isPending || !prompt.trim() || !apiKey}
+          color="primary"
+          variant="contained"
+          sx={{ marginTop: theme.spacing(2), marginBottom: theme.spacing(6) }}
+          startIcon={<AutoAwesomeIcon />}
+        >
+          {mutation.isPending ? "Generating..." : "Generate Story"}
+        </Button>
+      </Box>
+
+      <Typography variant="h6" gutterBottom>
+        Generated Story:
+      </Typography>
+      <Typography variant="body1" paragraph>
+        {mutation.data ?? "Your story will appear here..."}
+      </Typography>
+      <Typography variant="body1" paragraph>
+        {mutation.isError && <>Error: {mutation.error.message}</>}
+      </Typography>
+    </Stack>
   );
 };
