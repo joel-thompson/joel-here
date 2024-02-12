@@ -57,7 +57,6 @@ const fetchStory = async ({
   prompt: string;
   apiKey: string | null;
 }) => {
-  console.log({ apiKey });
   if (!apiKey) {
     throw new Error("API Key not set");
   }

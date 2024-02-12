@@ -34,7 +34,7 @@ const GPTApiKeyWrapper: React.FC<GPTApiKeyWrapperProps> = ({ children }) => {
           label="Enter GPT API Key"
           variant="standard"
           onChange={(e) => setValue(e.target.value)}
-        ></TextField>
+        />
         <Button
           disabled={trimmed === ""}
           onClick={onSubmit}
