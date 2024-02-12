@@ -41,6 +41,14 @@ export const TopNav = () => {
       >
         To Do List
       </Link>
+
+      <Link
+        color={theme.palette.background.default}
+        component={RouterLink}
+        to="/story-writer"
+      >
+        Story Writer
+      </Link>
     </Stack>
   );
 };

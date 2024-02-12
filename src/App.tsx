@@ -8,12 +8,17 @@ import { DarkModeContext, DarkModeProvider } from "./contexts/DarkModeContext";
 import { TopNav } from "./components/TopNav";
 import { Box } from "@mui/material";
 import { Outlet } from "react-router-dom";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 // import { purple } from "@mui/material/colors";
+
+const queryClient = new QueryClient();
 
 const OuterApp = () => {
   return (
     <DarkModeProvider>
-      <App />
+      <QueryClientProvider client={queryClient}>
+        <App />
+      </QueryClientProvider>
     </DarkModeProvider>
   );
 };
