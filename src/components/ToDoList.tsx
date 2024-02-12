@@ -83,7 +83,7 @@ export const ToDoList = () => {
         >
           Add
         </Button>
-        <Button onClick={resetTasks} color="warning" variant="outlined">
+        <Button onClick={resetTasks} color="error" variant="outlined">
           Reset to initial state
         </Button>
       </Stack>
