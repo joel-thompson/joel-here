@@ -11,6 +11,7 @@ const GPTApiKeyWrapper: React.FC<GPTApiKeyWrapperProps> = ({ children }) => {
   const [value, setValue] = useState("");
   const trimmed = value.trim();
   const isKeyEntered = apiKey !== null && apiKey !== "";
+  const [confirmReset, setConfirmReset] = useState(false);
 
   const theme = useTheme();
 
@@ -49,13 +50,44 @@ const GPTApiKeyWrapper: React.FC<GPTApiKeyWrapperProps> = ({ children }) => {
   return (
     <>
       <Button
-        onClick={() => setApiKey(null)}
+        onClick={() => setConfirmReset(true)}
         color="error"
-        variant="contained"
+        variant="outlined"
         sx={{ marginBottom: theme.spacing(4) }}
       >
         Clear API Key
       </Button>
+
+      {confirmReset && (
+        <>
+          <Button
+            onClick={() => {
+              setApiKey(null);
+              setConfirmReset(false);
+            }}
+            color="error"
+            variant="contained"
+            sx={{
+              marginBottom: theme.spacing(4),
+              marginLeft: theme.spacing(4),
+            }}
+          >
+            Yes
+          </Button>
+
+          <Button
+            onClick={() => setConfirmReset(false)}
+            color="success"
+            variant="contained"
+            sx={{
+              marginBottom: theme.spacing(4),
+              marginLeft: theme.spacing(2),
+            }}
+          >
+            No
+          </Button>
+        </>
+      )}
       <br />
       {children}
     </>

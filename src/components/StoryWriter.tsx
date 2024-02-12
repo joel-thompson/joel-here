@@ -46,7 +46,7 @@ export const StoryWriter = () => {
 
 // Define the structure of the API response data - this is probably wrong
 interface StoryResponse {
-  choices: [{ message: {content: string} }];
+  choices: [{ message: { content: string } }];
 }
 
 // Define the function for fetching the story from the API
