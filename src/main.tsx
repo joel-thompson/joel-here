@@ -14,6 +14,7 @@ import { Basic } from "./components/Basic.tsx";
 import { ToDoList } from "./components/ToDoList.tsx";
 import { StoryWriter } from "./components/StoryWriter.tsx";
 import Users from "./components/Users.tsx";
+import { BasicGPT } from "./components/BasicGPT.tsx";
 
 const router = createBrowserRouter([
   {
@@ -37,6 +38,10 @@ const router = createBrowserRouter([
       {
         path: "users",
         element: <Users />,
+      },
+      {
+        path: 'basicgpt',
+        element: <BasicGPT />,
       }
     ],
   },
