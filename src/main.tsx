@@ -13,6 +13,7 @@ import { AboutMe } from "./components/AboutMe.tsx";
 import { Basic } from "./components/Basic.tsx";
 import { ToDoList } from "./components/ToDoList.tsx";
 import { StoryWriter } from "./components/StoryWriter.tsx";
+import Users from "./components/Users.tsx";
 
 const router = createBrowserRouter([
   {
@@ -33,6 +34,10 @@ const router = createBrowserRouter([
         path: "story-writer",
         element: <StoryWriter />,
       },
+      {
+        path: "users",
+        element: <Users />,
+      }
     ],
   },
 ]);
