@@ -26,7 +26,7 @@ const fetchResponse = async ({
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      systemPrompt: "You answer questions",
+      systemPrompt: "You are a higher experienced civil engineer. Your main job is to help junior engineers with their projects. You have been asked to help a junior engineer with the following problem:",
       prompt: prompt.trim(),
     }),
   });
