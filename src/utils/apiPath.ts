@@ -4,7 +4,7 @@ function getFullApiPath(path: string): string {
   if (isDevEnvironment) {
     return `http://localhost:3000/api${path}`;
   } else {
-    return `https://byjoelthompson-api/api${path}`; // temporary, may need to update
+    return `https://joel-here-node-0e4e48edd3fe.herokuapp.com/api${path}`; // temporary, may need to update
   }
 }
 
