@@ -17,8 +17,10 @@ interface Response {
 
 const fetchResponse = async ({
   prompt,
+  conversation,
 }: {
   prompt: string;
+  conversation: string[];
 }) => {
   const response = await fetch(apiPath('/basicgpt'), {
     method: "POST",
@@ -28,6 +30,7 @@ const fetchResponse = async ({
     body: JSON.stringify({
       systemPrompt: "You are a higher experienced civil engineer. Your main job is to help junior engineers with their projects. You have been asked to help a junior engineer with the following problem:",
       prompt: prompt.trim(),
+      conversation: conversation,
     }),
   });
 
@@ -52,11 +55,13 @@ const fetchResponse = async ({
 export const BasicGPT = () => {
   const theme = useTheme();
   const [prompt, setPrompt] = useState<string>("");
+  const [conversation, setConversation] = useState<string[]>([]);
   const mutation = useMutation({
-    mutationFn: fetchResponse,
+    mutationFn: (data) => fetchResponse({ ...data, conversation }),
   });
 
   const handleSubmit = () => {
+    setConversation([...conversation, prompt]);
     mutation.mutate({ prompt });
   };
 
@@ -92,9 +97,17 @@ export const BasicGPT = () => {
       <Typography variant="h6" gutterBottom>
         Generated Response:
       </Typography>
-      <Typography variant="body1" paragraph>
-        {mutation.data ? `${mutation.data.message}` : "No response yet"}
-      </Typography>
+      {conversation.map((message, index) => (
+        <Typography variant="body1" paragraph key={index}>
+          {index % 2 === 0 ? "You: " : "AI: "}
+          {message}
+        </Typography>
+      ))}
+      {mutation.data && (
+        <Typography variant="body1" paragraph>
+          AI: {mutation.data.message}
+        </Typography>
+      )}
       <Typography variant="body1" paragraph>
         {mutation.isError && <>Error: {mutation.error.message}</>}
       </Typography>
