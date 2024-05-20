@@ -45,9 +45,9 @@ export const TopNav = () => {
       <Link
         color={theme.palette.background.default}
         component={RouterLink}
-        to="/story-writer"
+        to="/joegpt"
       >
-        Story Writer
+        Civil Engineering Helper
       </Link>
     </Stack>
   );
