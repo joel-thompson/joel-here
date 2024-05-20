@@ -79,7 +79,7 @@ export const BasicGPT = () => {
         onChange={(e) => {
           setPrompt(e.target.value);
         }}
-        placeholder="Enter your story idea, plot point, or character description here..."
+        placeholder="Enter your question here..."
         minRows={8}
         maxRows={16}
         sx={{
