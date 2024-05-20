@@ -16,10 +16,8 @@ interface Response {
 }
 
 const fetchResponse = async ({
-  prompt,
   conversation,
 }: {
-  prompt: string;
   conversation: string[];
 }) => {
   const response = await fetch(apiPath("/basicgpt"), {
@@ -30,7 +28,6 @@ const fetchResponse = async ({
     body: JSON.stringify({
       systemPrompt:
         "You are a higher experienced civil engineer. Your main job is to help junior engineers with their projects. This may be technical questions or communication questions. You have been asked to help a junior engineer with the following problem:",
-      prompt: prompt.trim(),
       conversation: conversation,
     }),
   });
@@ -58,16 +55,17 @@ export const BasicGPT = () => {
   const [prompt, setPrompt] = useState<string>("");
   const [conversation, setConversation] = useState<string[]>([]);
   const mutation = useMutation({
-    mutationFn: (thePrompt: string) =>
-      fetchResponse({ prompt: thePrompt, conversation }),
+    mutationFn: (updatedConversation: string[]) =>
+      fetchResponse({ conversation: updatedConversation }),
     onSuccess: (data) => {
       setConversation([...conversation, data.message]);
     },
   });
 
   const handleSubmit = () => {
-    setConversation([...conversation, prompt]);
-    mutation.mutate(prompt);
+    const updatedConversation = [...conversation, prompt];
+    setConversation(updatedConversation);
+    mutation.mutate(updatedConversation);
     setPrompt("");
   };
 
