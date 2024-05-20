@@ -40,7 +40,7 @@ const router = createBrowserRouter([
         element: <Users />,
       },
       {
-        path: 'basicgpt',
+        path: 'joegpt',
         element: <BasicGPT />,
       }
     ],
