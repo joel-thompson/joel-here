@@ -6,7 +6,7 @@ import {
   Typography,
   useTheme,
 } from "@mui/material";
-import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
+import EngineeringIcon from "@mui/icons-material/Engineering";
 import { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import apiPath from "../utils/apiPath";
@@ -17,17 +17,21 @@ interface Response {
 
 const fetchResponse = async ({
   prompt,
+  conversation,
 }: {
   prompt: string;
+  conversation: string[];
 }) => {
-  const response = await fetch(apiPath('/basicgpt'), {
+  const response = await fetch(apiPath("/basicgpt"), {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      systemPrompt: "You are a higher experienced civil engineer. Your main job is to help junior engineers with their projects. You have been asked to help a junior engineer with the following problem:",
+      systemPrompt:
+        "You are a higher experienced civil engineer. Your main job is to help junior engineers with their projects. This may be technical questions or communication questions. You have been asked to help a junior engineer with the following problem:",
       prompt: prompt.trim(),
+      conversation: conversation,
     }),
   });
 
@@ -36,7 +40,7 @@ const fetchResponse = async ({
     let errorMessage = "Failed to fetch"; // Default error message
     try {
       const errorBody = await response.json();
-      console.log({ errorBody })
+      console.log({ errorBody });
       errorMessage = errorBody.message;
     } catch (e) {
       errorMessage = "Error parsing error response:";
@@ -52,12 +56,19 @@ const fetchResponse = async ({
 export const BasicGPT = () => {
   const theme = useTheme();
   const [prompt, setPrompt] = useState<string>("");
+  const [conversation, setConversation] = useState<string[]>([]);
   const mutation = useMutation({
-    mutationFn: fetchResponse,
+    mutationFn: (thePrompt: string) =>
+      fetchResponse({ prompt: thePrompt, conversation }),
+    onSuccess: (data) => {
+      setConversation([...conversation, data.message]);
+    },
   });
 
   const handleSubmit = () => {
-    mutation.mutate({ prompt });
+    setConversation([...conversation, prompt]);
+    mutation.mutate(prompt);
+    setPrompt("");
   };
 
   return (
@@ -83,18 +94,21 @@ export const BasicGPT = () => {
           color="primary"
           variant="contained"
           sx={{ marginTop: theme.spacing(2), marginBottom: theme.spacing(6) }}
-          startIcon={<AutoAwesomeIcon />}
+          startIcon={<EngineeringIcon />}
         >
-          {mutation.isPending ? "Generating..." : "Get Response"}
+          {mutation.isPending ? "Please hold..." : "Do the thing"}
         </Button>
       </Box>
 
       <Typography variant="h6" gutterBottom>
         Generated Response:
       </Typography>
-      <Typography variant="body1" paragraph>
-        {mutation.data ? `${mutation.data.message}` : "No response yet"}
-      </Typography>
+      {conversation.map((message, index) => (
+        <Typography variant="body1" paragraph key={index}>
+          {index % 2 === 0 ? "You: " : "AI: "}
+          {message}
+        </Typography>
+      ))}
       <Typography variant="body1" paragraph>
         {mutation.isError && <>Error: {mutation.error.message}</>}
       </Typography>
