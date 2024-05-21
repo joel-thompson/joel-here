@@ -22,7 +22,7 @@ export const DarkModeButtonWithLabel = () => {
     <Stack direction="row" alignItems={"center"} flexBasis={"content"}>
       <DarkModeButton />
       <Typography sx={{ color: theme.palette.background.default }}>
-        Dark Mode
+        Dark
       </Typography>
     </Stack>
   );

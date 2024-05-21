@@ -109,68 +109,77 @@ export const BasicGPT = () => {
   };
 
   const buttonText = () => {
-    if (mutation.isPending) return "Constructo is thinking...";
     if (!prompt.trim()) return "Enter a question to ask Constructo";
     return "Do the thing";
   };
+  const blockSubmit = mutation.isPending || !prompt.trim();
 
   return (
     <Stack>
-      <Box
-        sx={{
-          width: "100%", // or any specific width
-          height: "auto", // or any specific height
-          maxHeight: "calc(100vh - 20em)", // Subtract the height of TextField and Button
-          overflowY: "auto", // Enable vertical scrolling
-        }}
-      >
-        {conversation.map((message, index) => (
-          <Typography
-            color={message.role === "user" ? userColor : constructoColor}
-            variant="body1"
-            paragraph
-            key={index}
-          >
-            {message.role === "user" ? "" : "Constructo: "}
-            {message.content}
-          </Typography>
-        ))}
-        <div ref={endOfMessagesRef} />
-      </Box>
-      <Stack>
-        <TextField
-          multiline
-          value={prompt}
-          onChange={(e) => {
-            setPrompt(e.target.value);
+      {conversation.length > 0 && (
+        <Box
+          sx={{
+            width: "100%", // or any specific width
+            height: "auto", // or any specific height
+            maxHeight: "calc(100vh - 16em)", // Subtract the height of TextField and Button
+            overflowY: "auto", // Enable vertical scrolling
+            border: `1px solid ${theme.palette.divider}`,
+            borderRadius: `${theme.shape.borderRadius}px`,
+            padding: theme.spacing(2),
+            marginBottom: theme.spacing(1),
           }}
-          onKeyDown={(e) => {
-            if (
-              (e.metaKey || e.ctrlKey) &&
-              e.key === "Enter" &&
-              !mutation.isPending
-            ) {
-              handleSubmit();
-            }
-          }}
-          placeholder="Enter your question here..."
-          minRows={2}
-          maxRows={8}
-        />
-
-        <Box>
-          <Button
-            onClick={handleSubmit}
-            disabled={mutation.isPending || !prompt.trim()}
-            color="primary"
-            variant="contained"
-            sx={{ marginTop: theme.spacing(2), marginBottom: theme.spacing(6) }}
-            startIcon={<EngineeringIcon />}
-          >
-            {buttonText()}
-          </Button>
+        >
+          {conversation.map((message, index) => (
+            <Typography
+              color={message.role === "user" ? userColor : constructoColor}
+              variant="body1"
+              paragraph
+              key={index}
+            >
+              {message.role === "user" ? "" : "Constructo: "}
+              {message.content}
+            </Typography>
+          ))}
+          {mutation.isPending && (
+            <Typography
+              color={constructoColor}
+              variant="body1"
+              paragraph
+            >
+              Constructo is thinking...
+            </Typography>
+          )}
+          <div ref={endOfMessagesRef} />
         </Box>
-      </Stack>
+      )}
+      <TextField
+        multiline
+        value={prompt}
+        onChange={(e) => {
+          setPrompt(e.target.value);
+        }}
+        onKeyDown={(e) => {
+          if ((e.metaKey || e.ctrlKey) && e.key === "Enter") {
+            if (blockSubmit) return;
+            handleSubmit();
+          }
+        }}
+        placeholder="Enter your question here..."
+        minRows={2}
+        maxRows={8}
+      />
+      <Box>
+        <Button
+          onClick={handleSubmit}
+          disabled={blockSubmit}
+          color="primary"
+          variant="contained"
+          sx={{ marginTop: theme.spacing(2) }}
+          startIcon={<EngineeringIcon />}
+        >
+          {buttonText()}
+        </Button>
+      </Box>
     </Stack>
   );
 };
