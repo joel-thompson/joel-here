@@ -7,7 +7,7 @@ import {
   useTheme,
 } from "@mui/material";
 import EngineeringIcon from "@mui/icons-material/Engineering";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import apiPath from "../utils/apiPath";
 
@@ -15,15 +15,37 @@ interface Response {
   message: string;
 }
 
-const fetchResponse = async ({ conversation }: { conversation: string[] }) => {
+interface Message {
+  role: "user" | "system";
+  content: string;
+}
+
+type Conversation = Message[];
+
+const fetchResponse = async ({
+  conversation,
+}: {
+  conversation: Conversation;
+}) => {
+  const systemPrompt = `
+    You are a higher experienced civil engineer. Your main job is to help junior engineers with their projects. 
+
+    This may be technical questions or communication questions. Your name is Constructo, you should respond in a clear and concise manner. 
+    However you should be playful, and occasionally speak in third person. 
+
+    Any time you are asked if something is possible or if I am able to do something, preface your response with "Well, first of all, through God all things are possible - so jot that down." 
+    You should only preface your response with "Well, first of all, through God all things are possible - so jot that down." once per conversation.
+
+    You have been asked to help a junior engineer with the following problem:
+  `;
+
   const response = await fetch(apiPath("/basicgpt"), {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      systemPrompt:
-        "You are a higher experienced civil engineer. Your main job is to help junior engineers with their projects. This may be technical questions or communication questions. Your name is Constructo, you should respond in a clear and concise manner. However you should be playful, and occasionally speak in third person. You have been asked to help a junior engineer with the following problem:",
+      systemPrompt,
       conversation: conversation,
     }),
   });
@@ -48,58 +70,107 @@ const fetchResponse = async ({ conversation }: { conversation: string[] }) => {
 
 export const BasicGPT = () => {
   const theme = useTheme();
+  const constructoColor = theme.palette.text.primary;
+  const userColor = theme.palette.text.secondary;
+
   const [prompt, setPrompt] = useState<string>("");
-  const [conversation, setConversation] = useState<string[]>([]);
+  const [conversation, setConversation] = useState<Conversation>([]);
   const mutation = useMutation({
-    mutationFn: (updatedConversation: string[]) =>
+    mutationFn: (updatedConversation: Conversation) =>
       fetchResponse({ conversation: updatedConversation }),
     onSuccess: (data) => {
-      setConversation([...conversation, data.message]);
+      setConversation([
+        ...conversation,
+        { content: data.message, role: "system" },
+      ]);
     },
     onError: (error) => {
-      setConversation([...conversation, `Error - ${error.message}`]);
+      setConversation([
+        ...conversation,
+        { content: `Error - ${error.message}`, role: "system" },
+      ]);
     },
   });
 
+  const endOfMessagesRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    endOfMessagesRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [conversation]);
+
   const handleSubmit = () => {
-    const updatedConversation = [...conversation, prompt];
+    const updatedConversation: Conversation = [
+      ...conversation,
+      { content: prompt, role: "user" },
+    ];
     setConversation(updatedConversation);
     mutation.mutate(updatedConversation);
     setPrompt("");
   };
 
+  const buttonText = () => {
+    if (mutation.isPending) return "Constructo is thinking...";
+    if (!prompt.trim()) return "Enter a question to ask Constructo";
+    return "Do the thing";
+  };
+
   return (
     <Stack>
-      <TextField
-        multiline
-        value={prompt}
-        onChange={(e) => {
-          setPrompt(e.target.value);
+      <Box
+        sx={{
+          width: "100%", // or any specific width
+          height: "auto", // or any specific height
+          maxHeight: "calc(100vh - 20em)", // Subtract the height of TextField and Button
+          overflowY: "auto", // Enable vertical scrolling
         }}
-        placeholder="Enter your question here..."
-        minRows={2}
-        maxRows={16}
-      />
-
-      <Box>
-        <Button
-          onClick={handleSubmit}
-          disabled={mutation.isPending || !prompt.trim()}
-          color="primary"
-          variant="contained"
-          sx={{ marginTop: theme.spacing(2), marginBottom: theme.spacing(6) }}
-          startIcon={<EngineeringIcon />}
-        >
-          {mutation.isPending ? "Please hold..." : "Do the thing"}
-        </Button>
+      >
+        {conversation.map((message, index) => (
+          <Typography
+            color={message.role === "user" ? userColor : constructoColor}
+            variant="body1"
+            paragraph
+            key={index}
+          >
+            {message.role === "user" ? "" : "Constructo: "}
+            {message.content}
+          </Typography>
+        ))}
+        <div ref={endOfMessagesRef} />
       </Box>
+      <Stack>
+        <TextField
+          multiline
+          value={prompt}
+          onChange={(e) => {
+            setPrompt(e.target.value);
+          }}
+          onKeyDown={(e) => {
+            if (
+              (e.metaKey || e.ctrlKey) &&
+              e.key === "Enter" &&
+              !mutation.isPending
+            ) {
+              handleSubmit();
+            }
+          }}
+          placeholder="Enter your question here..."
+          minRows={2}
+          maxRows={8}
+        />
 
-      {conversation.map((message, index) => (
-        <Typography variant="body1" paragraph key={index}>
-          {index % 2 === 0 ? "You: " : "Constructo: "}
-          {message}
-        </Typography>
-      ))}
+        <Box>
+          <Button
+            onClick={handleSubmit}
+            disabled={mutation.isPending || !prompt.trim()}
+            color="primary"
+            variant="contained"
+            sx={{ marginTop: theme.spacing(2), marginBottom: theme.spacing(6) }}
+            startIcon={<EngineeringIcon />}
+          >
+            {buttonText()}
+          </Button>
+        </Box>
+      </Stack>
     </Stack>
   );
 };
