@@ -15,11 +15,7 @@ interface Response {
   message: string;
 }
 
-const fetchResponse = async ({
-  conversation,
-}: {
-  conversation: string[];
-}) => {
+const fetchResponse = async ({ conversation }: { conversation: string[] }) => {
   const response = await fetch(apiPath("/basicgpt"), {
     method: "POST",
     headers: {
@@ -27,7 +23,7 @@ const fetchResponse = async ({
     },
     body: JSON.stringify({
       systemPrompt:
-        "You are a higher experienced civil engineer. Your main job is to help junior engineers with their projects. This may be technical questions or communication questions. You have been asked to help a junior engineer with the following problem:",
+        "You are a higher experienced civil engineer. Your main job is to help junior engineers with their projects. This may be technical questions or communication questions. Your name is Constructo, you should respond in a clear and concise manner. However you should be playful, and occasionally speak in third person. You have been asked to help a junior engineer with the following problem:",
       conversation: conversation,
     }),
   });
@@ -60,6 +56,9 @@ export const BasicGPT = () => {
     onSuccess: (data) => {
       setConversation([...conversation, data.message]);
     },
+    onError: (error) => {
+      setConversation([...conversation, `Error - ${error.message}`]);
+    },
   });
 
   const handleSubmit = () => {
@@ -78,11 +77,8 @@ export const BasicGPT = () => {
           setPrompt(e.target.value);
         }}
         placeholder="Enter your question here..."
-        minRows={8}
+        minRows={2}
         maxRows={16}
-        sx={{
-          width: "50%",
-        }}
       />
 
       <Box>
@@ -98,18 +94,12 @@ export const BasicGPT = () => {
         </Button>
       </Box>
 
-      <Typography variant="h6" gutterBottom>
-        Generated Response:
-      </Typography>
       {conversation.map((message, index) => (
         <Typography variant="body1" paragraph key={index}>
-          {index % 2 === 0 ? "You: " : "AI: "}
+          {index % 2 === 0 ? "You: " : "Constructo: "}
           {message}
         </Typography>
       ))}
-      <Typography variant="body1" paragraph>
-        {mutation.isError && <>Error: {mutation.error.message}</>}
-      </Typography>
     </Stack>
   );
 };
