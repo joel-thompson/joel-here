@@ -51,6 +51,14 @@ export const TopNav = () => {
         >
           Civil Engineering Helper
         </Link>
+
+        <Link
+          color={theme.palette.background.default}
+          component={RouterLink}
+          to="/tech-planner"
+        >
+          Techplanner
+        </Link>
       </Stack>
     </AppBar>
   );
