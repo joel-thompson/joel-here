@@ -4,24 +4,27 @@ import {
   Button,
   Stack,
   TextField,
-  useTheme,
   Typography,
+  useTheme,
 } from "@mui/material";
 import Markdown from "react-markdown";
 import axios from "axios";
-import apiPath from "../../utils/apiPath";
 
-export const MarkdownEditor = () => {
+interface FeedbackSectionProps {
+  inputText: string;
+  apiEndpoint: string;
+  labelText?: string;
+}
+
+export const GetFeedback: React.FC<FeedbackSectionProps> = ({
+  inputText,
+  apiEndpoint,
+  labelText = "Requirements",
+}) => {
   const theme = useTheme();
-  const [markdownText, setMarkdownText] = useState("");
   const [requirements, setRequirements] = useState("");
   const [feedback, setFeedback] = useState("");
-  const [preview, setPreview] = useState(false);
   const [loading, setLoading] = useState(false);
-
-  const handleTextChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setMarkdownText(event.target.value);
-  };
 
   const handleRequirementsChange = (
     event: React.ChangeEvent<HTMLInputElement>
@@ -29,16 +32,12 @@ export const MarkdownEditor = () => {
     setRequirements(event.target.value);
   };
 
-  const togglePreview = () => {
-    setPreview((prev) => !prev);
-  };
-
   const getFeedback = async () => {
     try {
       setFeedback("");
       setLoading(true);
-      const response = await axios.post(apiPath("/get-techplan-feedback"), {
-        markdownText,
+      const response = await axios.post(apiEndpoint, {
+        inputText,
         requirements,
       });
       setFeedback(response.data.feedback);
@@ -51,38 +50,8 @@ export const MarkdownEditor = () => {
 
   return (
     <Stack spacing={2}>
-      {/* START OF INPUT SECTION */}
-      <Button
-        onClick={togglePreview}
-        color="primary"
-        variant="contained"
-        sx={{ marginTop: theme.spacing(2) }}
-      >
-        {preview ? "Edit" : "Preview"}
-      </Button>
-      {preview ? (
-        <Box
-          sx={{ border: "1px solid", borderColor: theme.palette.divider, p: 2 }}
-        >
-          <Markdown>{markdownText}</Markdown>
-        </Box>
-      ) : (
-        <TextField
-          label="Markdown Input"
-          multiline
-          minRows={10}
-          maxRows={20}
-          value={markdownText}
-          onChange={handleTextChange}
-          variant="outlined"
-          fullWidth
-        />
-      )}
-      {/* END OF INPUT SECTION */}
-
-      {/* START OF FEEDBACK SECTION */}
       <TextField
-        label="Requirements"
+        label={labelText}
         multiline
         minRows={2}
         maxRows={5}
@@ -91,7 +60,6 @@ export const MarkdownEditor = () => {
         variant="outlined"
         fullWidth
       />
-
       <Button
         onClick={getFeedback}
         color="secondary"
@@ -108,7 +76,6 @@ export const MarkdownEditor = () => {
           <Markdown>{feedback}</Markdown>
         </Box>
       )}
-      {/* END OF FEEDBACK SECTION */}
     </Stack>
   );
 };
