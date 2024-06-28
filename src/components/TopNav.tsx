@@ -1,65 +1,94 @@
-import { AppBar, Link, Stack, Typography, useTheme } from "@mui/material";
-import { DarkModeButtonWithLabel } from "./DarkModeButton";
+import {
+  AppBar,
+  Toolbar,
+  IconButton,
+  Drawer,
+  List,
+  ListItem,
+  ListItemText,
+  Link,
+  useMediaQuery,
+  useTheme,
+  Stack,
+} from "@mui/material";
+import MenuIcon from "@mui/icons-material/Menu";
+import { DarkModeButtonSingle } from "./DarkModeButton";
 import { Link as RouterLink } from "react-router-dom";
+import { useState } from "react";
 
 export const TopNav = () => {
   const theme = useTheme();
-  // const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm")); // eventually will need to make this responsive
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
+  const [drawerOpen, setDrawerOpen] = useState(false);
+
+  const handleDrawerToggle = () => {
+    setDrawerOpen(!drawerOpen);
+  };
+
+  const menuItems = [
+    { text: "Home", to: "/" },
+    { text: "To Do List", to: "/todo" },
+    { text: "Civil Engineering Helper", to: "/joegpt" },
+    { text: "Techplanner", to: "/tech-planner" },
+  ];
+
   return (
-    <AppBar position="sticky">
-      <Stack
-        direction="row"
-        alignItems={"center"}
-        flexBasis={"content"}
-        sx={{
-          backgroundColor: theme.palette.primary.dark,
-        }}
-        // temporary divider until I make a better one
-        divider={
-          <Typography
-            sx={{
-              color: theme.palette.background.default, // make the text color the same as the background
-              marginLeft: theme.spacing(2),
-              marginRight: theme.spacing(2),
-            }}
-          >
-            |
-          </Typography>
-        }
+    <>
+      <AppBar
+        position="sticky"
+        sx={{ backgroundColor: theme.palette.primary.dark }}
       >
-        <DarkModeButtonWithLabel />
-        <Link
-          color={theme.palette.background.default}
-          component={RouterLink}
-          to="/"
-        >
-          Home
-        </Link>
-
-        <Link
-          color={theme.palette.background.default}
-          component={RouterLink}
-          to="/todo"
-        >
-          To Do List
-        </Link>
-
-        <Link
-          color={theme.palette.background.default}
-          component={RouterLink}
-          to="/joegpt"
-        >
-          Civil Engineering Helper
-        </Link>
-
-        <Link
-          color={theme.palette.background.default}
-          component={RouterLink}
-          to="/tech-planner"
-        >
-          Techplanner
-        </Link>
-      </Stack>
-    </AppBar>
+        <Toolbar>
+          <DarkModeButtonSingle />
+          {isSmallScreen ? (
+            <>
+              <IconButton
+                edge="start"
+                aria-label="menu"
+                onClick={handleDrawerToggle}
+                sx={{
+                  color: theme.palette.background.default,
+                }}
+              >
+                <MenuIcon />
+              </IconButton>
+              <Drawer
+                anchor="left"
+                open={drawerOpen}
+                onClose={handleDrawerToggle}
+              >
+                <List>
+                  {menuItems.map((item) => (
+                    <ListItem
+                      button
+                      key={item.text}
+                      component={RouterLink}
+                      to={item.to}
+                      onClick={handleDrawerToggle}
+                    >
+                      <ListItemText primary={item.text} />
+                    </ListItem>
+                  ))}
+                </List>
+              </Drawer>
+            </>
+          ) : (
+            <Stack direction="row" alignItems={"center"} flexBasis={"content"}>
+              {menuItems.map((item) => (
+                <Link
+                  key={item.text}
+                  color={theme.palette.background.default}
+                  component={RouterLink}
+                  to={item.to}
+                  sx={{ marginLeft: theme.spacing(2) }}
+                >
+                  {item.text}
+                </Link>
+              ))}
+            </Stack>
+          )}
+        </Toolbar>
+      </AppBar>
+    </>
   );
 };
