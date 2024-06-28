@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import { Box, Button, Stack, TextField, useTheme } from "@mui/material";
 import Markdown from "react-markdown";
 import { ContentCopy, ModeEdit, Preview } from "@mui/icons-material";
@@ -15,9 +15,31 @@ export const MarkdownInput: React.FC<MarkdownInputProps> = ({
   const theme = useTheme();
   const [preview, setPreview] = useState(false);
   const [copySuccess, setCopySuccess] = useState(false);
+  const [history, setHistory] = useState<string[]>([]);
+  const [historyIndex, setHistoryIndex] = useState<number>(-1);
+
+  useEffect(() => {
+    // Initialize history with the initial markdown text, not ideal to use a useEffect for this but it works
+    if (historyIndex === -1) {
+      setHistory([markdownText]);
+      setHistoryIndex(0);
+    }
+  }, [markdownText, historyIndex]);
+
+  const updateHistory = useCallback(
+    (newText: string) => {
+      // Add new text state to history
+      const newHistory = history.slice(0, historyIndex + 1);
+      setHistory([...newHistory, newText]);
+      setHistoryIndex(newHistory.length);
+    },
+    [history, historyIndex]
+  );
 
   const handleTextChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setMarkdownText(event.target.value);
+    const newText = event.target.value;
+    setMarkdownText(newText);
+    updateHistory(newText);
   };
 
   const togglePreview = () => {
@@ -54,8 +76,10 @@ export const MarkdownInput: React.FC<MarkdownInputProps> = ({
         textarea.selectionStart = start + 2;
         textarea.selectionEnd = end + 2;
       }, 0);
+
+      updateHistory(newText);
     }
-  }, [setMarkdownText]);
+  }, [setMarkdownText, updateHistory]);
 
   const handleHyperlinkShortcut = useCallback(() => {
     const textarea = document.querySelector(
@@ -75,8 +99,26 @@ export const MarkdownInput: React.FC<MarkdownInputProps> = ({
         textarea.selectionStart = start + selectedText.length + 3; // After "[selectedText]("
         textarea.selectionEnd = start + selectedText.length + 6; // After "url"
       }, 0);
+
+      updateHistory(newText);
     }
-  }, [setMarkdownText]);
+  }, [setMarkdownText, updateHistory]);
+
+  const handleUndo = () => {
+    if (historyIndex > 0) {
+      const newHistoryIndex = historyIndex - 1;
+      setHistoryIndex(newHistoryIndex);
+      setMarkdownText(history[newHistoryIndex]);
+    }
+  };
+
+  const handleRedo = () => {
+    if (historyIndex < history.length - 1) {
+      const newHistoryIndex = historyIndex + 1;
+      setHistoryIndex(newHistoryIndex);
+      setMarkdownText(history[newHistoryIndex]);
+    }
+  };
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
     if ((event.metaKey || event.ctrlKey) && event.key === "b") {
@@ -86,6 +128,14 @@ export const MarkdownInput: React.FC<MarkdownInputProps> = ({
     if ((event.metaKey || event.ctrlKey) && event.key === "k") {
       event.preventDefault();
       handleHyperlinkShortcut();
+    }
+    if ((event.metaKey || event.ctrlKey) && event.key === "z") {
+      event.preventDefault();
+      handleUndo();
+    }
+    if ((event.metaKey || event.ctrlKey) && event.key === "y") {
+      event.preventDefault();
+      handleRedo();
     }
     // Add more shortcuts handling here
   };
@@ -111,7 +161,7 @@ export const MarkdownInput: React.FC<MarkdownInputProps> = ({
           startIcon={<ContentCopy />}
           disabled={!markdownText.trim()}
         >
-          {copySuccess ? "Copied!" : "Copy to Clipboard"}
+          {copySuccess ? "Copied!" : "Copy"}
         </Button>
       </Stack>
       {preview ? (
