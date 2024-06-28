@@ -65,9 +65,11 @@ export const GetFeedback: React.FC<FeedbackSectionProps> = ({
         color="secondary"
         variant="contained"
         sx={{ marginTop: theme.spacing(2) }}
+        disabled={!requirements.trim() || !inputText.trim() || loading}
       >
         Get Feedback
       </Button>
+
       {(feedback || loading) && (
         <Box sx={{ marginTop: theme.spacing(2) }}>
           <Typography variant="h6">
