@@ -10,6 +10,7 @@ import {
   useMediaQuery,
   useTheme,
   Stack,
+  ListItemButton,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import { DarkModeButtonSingle } from "./DarkModeButton";
@@ -42,8 +43,9 @@ export const TopNav = () => {
           <DarkModeButtonSingle />
           {isSmallScreen ? (
             <>
+              <div style={{ flexGrow: 1 }} />
               <IconButton
-                edge="start"
+                edge="end"
                 aria-label="menu"
                 onClick={handleDrawerToggle}
                 sx={{
@@ -59,15 +61,14 @@ export const TopNav = () => {
               >
                 <List>
                   {menuItems.map((item) => (
-                    <ListItem
-                      button
+                    <ListItemButton
                       key={item.text}
                       component={RouterLink}
                       to={item.to}
                       onClick={handleDrawerToggle}
                     >
                       <ListItemText primary={item.text} />
-                    </ListItem>
+                    </ListItemButton>
                   ))}
                 </List>
               </Drawer>
