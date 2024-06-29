@@ -10,6 +10,7 @@ import EngineeringIcon from "@mui/icons-material/Engineering";
 import { useEffect, useRef, useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import apiPath from "../utils/apiPath";
+import Markdown from "react-markdown";
 
 interface Response {
   message: string;
@@ -137,15 +138,11 @@ export const BasicGPT = () => {
               key={index}
             >
               {message.role === "user" ? "" : "Constructo: "}
-              {message.content}
+              <Markdown>{message.content}</Markdown>
             </Typography>
           ))}
           {mutation.isPending && (
-            <Typography
-              color={constructoColor}
-              variant="body1"
-              paragraph
-            >
+            <Typography color={constructoColor} variant="body1" paragraph>
               Constructo is thinking...
             </Typography>
           )}
