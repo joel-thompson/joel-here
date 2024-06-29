@@ -29,7 +29,7 @@ export const TopNav = () => {
     { text: "Home", to: "/" },
     { text: "To Do List", to: "/todo" },
     { text: "Civil Engineering Helper", to: "/joegpt" },
-    { text: "Techplanner", to: "/tech-planner" },
+    { text: "Tech Planner", to: "/tech-planner" },
   ];
 
   return (
