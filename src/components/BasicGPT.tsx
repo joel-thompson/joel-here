@@ -10,7 +10,7 @@ import {
   DialogContent,
   DialogActions,
   List,
-  ListItem,
+  ListItemButton,
   ListItemText,
   IconButton,
 } from "@mui/material";
@@ -18,6 +18,7 @@ import EngineeringIcon from "@mui/icons-material/Engineering";
 import SaveIcon from "@mui/icons-material/Save";
 import ListIcon from "@mui/icons-material/List";
 import CloseIcon from "@mui/icons-material/Close";
+import AddIcon from "@mui/icons-material/Add";
 import { useEffect, useRef, useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { useLocalStorage } from "@uidotdev/usehooks";
@@ -77,6 +78,10 @@ export const BasicGPT = () => {
   const [savedConversations, setSavedConversations] = useLocalStorage<{
     [key: string]: Conversation;
   }>("saved-conversations", {});
+
+  const savedConvArray = Object.keys(savedConversations);
+  console.log({ savedConvArray });
+
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const mutation = useMutation({
@@ -134,6 +139,11 @@ export const BasicGPT = () => {
     const restoredConversation = savedConversations[key];
     setConversation(restoredConversation);
     setIsDialogOpen(false);
+  };
+
+  const handleNewConversation = () => {
+    setConversation([]);
+    setPrompt("");
   };
 
   const buttonText = () => {
@@ -197,33 +207,41 @@ export const BasicGPT = () => {
         justifyContent="space-between"
         alignItems="center"
         gap={4}
+        sx={{ marginTop: theme.spacing(2) }}
       >
         <Button
           onClick={handleSubmit}
           disabled={blockSubmit}
           color="primary"
           variant="contained"
-          sx={{ marginTop: theme.spacing(2) }}
           startIcon={<EngineeringIcon />}
         >
           {buttonText()}
         </Button>
         <Box display="flex" justifyContent="right" alignItems="center" gap={2}>
           <Button
+            onClick={handleNewConversation}
+            disabled={conversation.length === 0}
+            color="secondary"
+            variant="contained"
+            startIcon={<AddIcon />}
+          >
+            New
+          </Button>
+          <Button
             onClick={handleSave}
             disabled={conversation.length === 0}
             color="secondary"
             variant="contained"
-            sx={{ marginTop: theme.spacing(2) }}
             startIcon={<SaveIcon />}
           >
             Save
           </Button>
           <Button
             onClick={handleOpenDialog}
+            disabled={savedConvArray.length === 0}
             color="secondary"
             variant="contained"
-            sx={{ marginTop: theme.spacing(2) }}
             startIcon={<ListIcon />}
           >
             Saved
@@ -249,14 +267,13 @@ export const BasicGPT = () => {
         </DialogTitle>
         <DialogContent dividers>
           <List>
-            {Object.keys(savedConversations).map((key) => (
-              <ListItem
-                button
+            {savedConvArray.map((key) => (
+              <ListItemButton
                 onClick={() => handleRestoreConversation(key)}
                 key={key}
               >
                 <ListItemText primary={key} />
-              </ListItem>
+              </ListItemButton>
             ))}
           </List>
         </DialogContent>
