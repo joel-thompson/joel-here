@@ -19,6 +19,7 @@ import SaveIcon from "@mui/icons-material/Save";
 import ListIcon from "@mui/icons-material/List";
 import CloseIcon from "@mui/icons-material/Close";
 import AddIcon from "@mui/icons-material/Add";
+import DeleteIcon from "@mui/icons-material/Delete";
 import { useEffect, useRef, useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { useLocalStorage } from "@uidotdev/usehooks";
@@ -139,6 +140,12 @@ export const BasicGPT = () => {
     const restoredConversation = savedConversations[key];
     setConversation(restoredConversation);
     setIsDialogOpen(false);
+  };
+
+  const handleDeleteConversation = (key: string) => {
+    const updatedConversations = { ...savedConversations };
+    delete updatedConversations[key];
+    setSavedConversations(updatedConversations);
   };
 
   const handleNewConversation = () => {
@@ -268,12 +275,21 @@ export const BasicGPT = () => {
         <DialogContent dividers>
           <List>
             {savedConvArray.map((key) => (
-              <ListItemButton
-                onClick={() => handleRestoreConversation(key)}
-                key={key}
-              >
-                <ListItemText primary={key} />
-              </ListItemButton>
+              <Box key={key} display="flex" alignItems="center">
+                <ListItemButton
+                  onClick={() => handleRestoreConversation(key)}
+                  sx={{ flexGrow: 1 }}
+                >
+                  <ListItemText primary={key} />
+                </ListItemButton>
+                <IconButton
+                  edge="end"
+                  aria-label="delete"
+                  onClick={() => handleDeleteConversation(key)}
+                >
+                  <DeleteIcon />
+                </IconButton>
+              </Box>
             ))}
           </List>
         </DialogContent>
