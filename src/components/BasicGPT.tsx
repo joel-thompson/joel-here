@@ -5,9 +5,19 @@ import {
   TextField,
   Typography,
   useTheme,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  List,
+  ListItem,
+  ListItemText,
+  IconButton,
 } from "@mui/material";
 import EngineeringIcon from "@mui/icons-material/Engineering";
 import SaveIcon from "@mui/icons-material/Save";
+import ListIcon from "@mui/icons-material/List";
+import CloseIcon from "@mui/icons-material/Close";
 import { useEffect, useRef, useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { useLocalStorage } from "@uidotdev/usehooks";
@@ -67,6 +77,7 @@ export const BasicGPT = () => {
   const [savedConversations, setSavedConversations] = useLocalStorage<{
     [key: string]: Conversation;
   }>("saved-conversations", {});
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const mutation = useMutation({
     mutationFn: (updatedConversation: Conversation) =>
@@ -109,6 +120,20 @@ export const BasicGPT = () => {
       ...savedConversations,
       [firstMessageKey]: conversation,
     });
+  };
+
+  const handleOpenDialog = () => {
+    setIsDialogOpen(true);
+  };
+
+  const handleCloseDialog = () => {
+    setIsDialogOpen(false);
+  };
+
+  const handleRestoreConversation = (key: string) => {
+    const restoredConversation = savedConversations[key];
+    setConversation(restoredConversation);
+    setIsDialogOpen(false);
   };
 
   const buttonText = () => {
@@ -167,7 +192,12 @@ export const BasicGPT = () => {
         minRows={2}
         maxRows={8}
       />
-      <Box display="flex" justifyContent="space-between" alignItems="center">
+      <Box
+        display="flex"
+        justifyContent="space-between"
+        alignItems="center"
+        gap={4}
+      >
         <Button
           onClick={handleSubmit}
           disabled={blockSubmit}
@@ -178,16 +208,64 @@ export const BasicGPT = () => {
         >
           {buttonText()}
         </Button>
-        <Button
-          onClick={handleSave}
-          color="secondary"
-          variant="contained"
-          sx={{ marginTop: theme.spacing(2) }}
-          startIcon={<SaveIcon />}
-        >
-          Save
-        </Button>
+        <Box display="flex" justifyContent="right" alignItems="center" gap={2}>
+          <Button
+            onClick={handleSave}
+            disabled={conversation.length === 0}
+            color="secondary"
+            variant="contained"
+            sx={{ marginTop: theme.spacing(2) }}
+            startIcon={<SaveIcon />}
+          >
+            Save
+          </Button>
+          <Button
+            onClick={handleOpenDialog}
+            color="secondary"
+            variant="contained"
+            sx={{ marginTop: theme.spacing(2) }}
+            startIcon={<ListIcon />}
+          >
+            Saved
+          </Button>
+        </Box>
       </Box>
+
+      <Dialog
+        open={isDialogOpen}
+        onClose={handleCloseDialog}
+        fullWidth
+        maxWidth="sm"
+      >
+        <DialogTitle>
+          Saved Conversations
+          <IconButton
+            aria-label="close"
+            onClick={handleCloseDialog}
+            sx={{ position: "absolute", right: 8, top: 8 }}
+          >
+            <CloseIcon />
+          </IconButton>
+        </DialogTitle>
+        <DialogContent dividers>
+          <List>
+            {Object.keys(savedConversations).map((key) => (
+              <ListItem
+                button
+                onClick={() => handleRestoreConversation(key)}
+                key={key}
+              >
+                <ListItemText primary={key} />
+              </ListItem>
+            ))}
+          </List>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseDialog} color="primary">
+            Close
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Stack>
   );
 };
