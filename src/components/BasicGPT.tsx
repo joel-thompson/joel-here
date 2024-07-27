@@ -5,10 +5,24 @@ import {
   TextField,
   Typography,
   useTheme,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  List,
+  ListItemButton,
+  ListItemText,
+  IconButton,
 } from "@mui/material";
 import EngineeringIcon from "@mui/icons-material/Engineering";
+import SaveIcon from "@mui/icons-material/Save";
+import ListIcon from "@mui/icons-material/List";
+import CloseIcon from "@mui/icons-material/Close";
+import AddIcon from "@mui/icons-material/Add";
+import DeleteIcon from "@mui/icons-material/Delete";
 import { useEffect, useRef, useState } from "react";
 import { useMutation } from "@tanstack/react-query";
+import { useLocalStorage } from "@uidotdev/usehooks";
 import apiPath from "../utils/apiPath";
 import Markdown from "react-markdown";
 
@@ -39,8 +53,7 @@ const fetchResponse = async ({
   });
 
   if (!response.ok) {
-    // Try to extract the error message from the response body
-    let errorMessage = "Failed to fetch"; // Default error message
+    let errorMessage = "Failed to fetch";
     try {
       const errorBody = await response.json();
       console.log({ errorBody });
@@ -63,6 +76,15 @@ export const BasicGPT = () => {
 
   const [prompt, setPrompt] = useState<string>("");
   const [conversation, setConversation] = useState<Conversation>([]);
+  const [savedConversations, setSavedConversations] = useLocalStorage<{
+    [key: string]: Conversation;
+  }>("saved-conversations", {});
+
+  const savedConvArray = Object.keys(savedConversations);
+  console.log({ savedConvArray });
+
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+
   const mutation = useMutation({
     mutationFn: (updatedConversation: Conversation) =>
       fetchResponse({ conversation: updatedConversation }),
@@ -96,6 +118,41 @@ export const BasicGPT = () => {
     setPrompt("");
   };
 
+  const handleSave = () => {
+    if (conversation.length === 0) return;
+    const firstMessageContent = conversation[0].content;
+    const firstMessageKey = firstMessageContent.slice(0, 20);
+    setSavedConversations({
+      ...savedConversations,
+      [firstMessageKey]: conversation,
+    });
+  };
+
+  const handleOpenDialog = () => {
+    setIsDialogOpen(true);
+  };
+
+  const handleCloseDialog = () => {
+    setIsDialogOpen(false);
+  };
+
+  const handleRestoreConversation = (key: string) => {
+    const restoredConversation = savedConversations[key];
+    setConversation(restoredConversation);
+    setIsDialogOpen(false);
+  };
+
+  const handleDeleteConversation = (key: string) => {
+    const updatedConversations = { ...savedConversations };
+    delete updatedConversations[key];
+    setSavedConversations(updatedConversations);
+  };
+
+  const handleNewConversation = () => {
+    setConversation([]);
+    setPrompt("");
+  };
+
   const buttonText = () => {
     if (!prompt.trim()) return "Enter a question to ask Constructo";
     return "Do the thing";
@@ -107,10 +164,10 @@ export const BasicGPT = () => {
       {conversation.length > 0 && (
         <Box
           sx={{
-            width: "100%", // or any specific width
-            height: "auto", // or any specific height
-            maxHeight: "calc(100vh - 16em)", // Subtract the height of TextField and Button
-            overflowY: "auto", // Enable vertical scrolling
+            width: "100%",
+            height: "auto",
+            maxHeight: "calc(100vh - 16em)",
+            overflowY: "auto",
             border: `1px solid ${theme.palette.divider}`,
             borderRadius: `${theme.shape.borderRadius}px`,
             padding: theme.spacing(2),
@@ -152,18 +209,96 @@ export const BasicGPT = () => {
         minRows={2}
         maxRows={8}
       />
-      <Box>
+      <Box
+        display="flex"
+        justifyContent="space-between"
+        alignItems="center"
+        gap={4}
+        sx={{ marginTop: theme.spacing(2) }}
+      >
         <Button
           onClick={handleSubmit}
           disabled={blockSubmit}
           color="primary"
           variant="contained"
-          sx={{ marginTop: theme.spacing(2) }}
           startIcon={<EngineeringIcon />}
         >
           {buttonText()}
         </Button>
+        <Box display="flex" justifyContent="right" alignItems="center" gap={2}>
+          <Button
+            onClick={handleNewConversation}
+            disabled={conversation.length === 0}
+            color="secondary"
+            variant="contained"
+            startIcon={<AddIcon />}
+          >
+            New
+          </Button>
+          <Button
+            onClick={handleSave}
+            disabled={conversation.length === 0}
+            color="secondary"
+            variant="contained"
+            startIcon={<SaveIcon />}
+          >
+            Save
+          </Button>
+          <Button
+            onClick={handleOpenDialog}
+            disabled={savedConvArray.length === 0}
+            color="secondary"
+            variant="contained"
+            startIcon={<ListIcon />}
+          >
+            Saved
+          </Button>
+        </Box>
       </Box>
+
+      <Dialog
+        open={isDialogOpen}
+        onClose={handleCloseDialog}
+        fullWidth
+        maxWidth="sm"
+      >
+        <DialogTitle>
+          Saved Conversations
+          <IconButton
+            aria-label="close"
+            onClick={handleCloseDialog}
+            sx={{ position: "absolute", right: 8, top: 8 }}
+          >
+            <CloseIcon />
+          </IconButton>
+        </DialogTitle>
+        <DialogContent dividers>
+          <List>
+            {savedConvArray.map((key) => (
+              <Box key={key} display="flex" alignItems="center">
+                <ListItemButton
+                  onClick={() => handleRestoreConversation(key)}
+                  sx={{ flexGrow: 1 }}
+                >
+                  <ListItemText primary={key} />
+                </ListItemButton>
+                <IconButton
+                  edge="end"
+                  aria-label="delete"
+                  onClick={() => handleDeleteConversation(key)}
+                >
+                  <DeleteIcon />
+                </IconButton>
+              </Box>
+            ))}
+          </List>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseDialog} color="primary">
+            Close
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Stack>
   );
 };
