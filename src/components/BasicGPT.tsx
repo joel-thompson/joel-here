@@ -7,8 +7,10 @@ import {
   useTheme,
 } from "@mui/material";
 import EngineeringIcon from "@mui/icons-material/Engineering";
+import SaveIcon from "@mui/icons-material/Save";
 import { useEffect, useRef, useState } from "react";
 import { useMutation } from "@tanstack/react-query";
+import { useLocalStorage } from "@uidotdev/usehooks";
 import apiPath from "../utils/apiPath";
 import Markdown from "react-markdown";
 
@@ -39,8 +41,7 @@ const fetchResponse = async ({
   });
 
   if (!response.ok) {
-    // Try to extract the error message from the response body
-    let errorMessage = "Failed to fetch"; // Default error message
+    let errorMessage = "Failed to fetch";
     try {
       const errorBody = await response.json();
       console.log({ errorBody });
@@ -63,6 +64,10 @@ export const BasicGPT = () => {
 
   const [prompt, setPrompt] = useState<string>("");
   const [conversation, setConversation] = useState<Conversation>([]);
+  const [savedConversations, setSavedConversations] = useLocalStorage<{
+    [key: string]: Conversation;
+  }>("saved-conversations", {});
+
   const mutation = useMutation({
     mutationFn: (updatedConversation: Conversation) =>
       fetchResponse({ conversation: updatedConversation }),
@@ -96,6 +101,16 @@ export const BasicGPT = () => {
     setPrompt("");
   };
 
+  const handleSave = () => {
+    if (conversation.length === 0) return;
+    const firstMessageContent = conversation[0].content;
+    const firstMessageKey = firstMessageContent.slice(0, 20);
+    setSavedConversations({
+      ...savedConversations,
+      [firstMessageKey]: conversation,
+    });
+  };
+
   const buttonText = () => {
     if (!prompt.trim()) return "Enter a question to ask Constructo";
     return "Do the thing";
@@ -107,10 +122,10 @@ export const BasicGPT = () => {
       {conversation.length > 0 && (
         <Box
           sx={{
-            width: "100%", // or any specific width
-            height: "auto", // or any specific height
-            maxHeight: "calc(100vh - 16em)", // Subtract the height of TextField and Button
-            overflowY: "auto", // Enable vertical scrolling
+            width: "100%",
+            height: "auto",
+            maxHeight: "calc(100vh - 16em)",
+            overflowY: "auto",
             border: `1px solid ${theme.palette.divider}`,
             borderRadius: `${theme.shape.borderRadius}px`,
             padding: theme.spacing(2),
@@ -152,7 +167,7 @@ export const BasicGPT = () => {
         minRows={2}
         maxRows={8}
       />
-      <Box>
+      <Box display="flex" justifyContent="space-between" alignItems="center">
         <Button
           onClick={handleSubmit}
           disabled={blockSubmit}
@@ -162,6 +177,15 @@ export const BasicGPT = () => {
           startIcon={<EngineeringIcon />}
         >
           {buttonText()}
+        </Button>
+        <Button
+          onClick={handleSave}
+          color="secondary"
+          variant="contained"
+          sx={{ marginTop: theme.spacing(2) }}
+          startIcon={<SaveIcon />}
+        >
+          Save
         </Button>
       </Box>
     </Stack>
