@@ -8,6 +8,7 @@ import { ToDoList } from "./components/ToDoList";
 import Users from "./components/Users";
 import ErrorPage from "./error-page";
 import TechPlanner from "./components/TechPlanner";
+import StructuredOutput from "./components/StructuredOutput";
 
 const router = createBrowserRouter([
   {
@@ -39,6 +40,10 @@ const router = createBrowserRouter([
       {
         path: "tech-planner",
         element: <TechPlanner />,
+      },
+      {
+        path: "basic-structured-output",
+        element: <StructuredOutput />,
       },
     ],
   },
