@@ -9,6 +9,8 @@ import Users from "./components/Users";
 import ErrorPage from "./error-page";
 import TechPlanner from "./components/TechPlanner";
 import StructuredOutput from "./components/StructuredOutput";
+import { SendConversationToApi } from "./components/SendConversationToApi";
+import apiPath from "./utils/apiPath";
 
 const router = createBrowserRouter([
   {
@@ -44,6 +46,12 @@ const router = createBrowserRouter([
       {
         path: "basic-structured-output",
         element: <StructuredOutput />,
+      },
+      {
+        path: "basic-conv",
+        element: (
+          <SendConversationToApi apiEndpoint={apiPath("/bdasic-conv")} />
+        ),
       },
     ],
   },

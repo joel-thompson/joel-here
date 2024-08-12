@@ -31,7 +31,7 @@ interface Response {
 }
 
 interface Message {
-  role: "user" | "system";
+  role: "user" | "system" | "assistant";
   content: string;
 }
 
