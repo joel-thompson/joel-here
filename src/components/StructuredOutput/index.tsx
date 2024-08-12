@@ -1,5 +1,5 @@
 import apiPath from "../../utils/apiPath";
-import { SendTextToApi } from "../SendTextToApi";
+import { SendTextToApi } from "../SendToApi/SendTextToApi";
 
 const StructuredOutput = () => {
   return (

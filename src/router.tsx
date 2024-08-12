@@ -9,7 +9,7 @@ import Users from "./components/Users";
 import ErrorPage from "./error-page";
 import TechPlanner from "./components/TechPlanner";
 import StructuredOutput from "./components/StructuredOutput";
-import { SendConversationToApi } from "./components/SendConversationToApi";
+import { SendConversationToApi } from "./components/SendToApi/SendConversationToApi";
 import apiPath from "./utils/apiPath";
 
 const router = createBrowserRouter([
