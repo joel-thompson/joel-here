@@ -3,7 +3,6 @@ import {
   Button,
   Stack,
   TextField,
-  Typography,
   useTheme,
   Dialog,
   DialogTitle,
@@ -24,18 +23,12 @@ import { useEffect, useRef, useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { useLocalStorage } from "@uidotdev/usehooks";
 import apiPath from "../utils/apiPath";
-import Markdown from "react-markdown";
+
+import { Conversation, ConversationList } from "./SendToApi/ConversationList";
 
 interface Response {
   message: string;
 }
-
-interface Message {
-  role: "user" | "system" | "assistant";
-  content: string;
-}
-
-type Conversation = Message[];
 
 const fetchResponse = async ({
   conversation,
@@ -71,8 +64,6 @@ const fetchResponse = async ({
 
 export const BasicGPT = () => {
   const theme = useTheme();
-  const constructoColor = theme.palette.text.primary;
-  const userColor = theme.palette.text.secondary;
 
   const [prompt, setPrompt] = useState<string>("");
   const [conversation, setConversation] = useState<Conversation>([]);
@@ -161,38 +152,13 @@ export const BasicGPT = () => {
 
   return (
     <Stack>
-      {conversation.length > 0 && (
-        <Box
-          sx={{
-            width: "100%",
-            height: "auto",
-            maxHeight: "calc(100vh - 16em)",
-            overflowY: "auto",
-            border: `1px solid ${theme.palette.divider}`,
-            borderRadius: `${theme.shape.borderRadius}px`,
-            padding: theme.spacing(2),
-            marginBottom: theme.spacing(1),
-          }}
-        >
-          {conversation.map((message, index) => (
-            <Typography
-              color={message.role === "user" ? userColor : constructoColor}
-              variant="body1"
-              paragraph
-              key={index}
-            >
-              {message.role === "user" ? "" : "Constructo: "}
-              <Markdown>{message.content}</Markdown>
-            </Typography>
-          ))}
-          {mutation.isPending && (
-            <Typography color={constructoColor} variant="body1" paragraph>
-              Constructo is thinking...
-            </Typography>
-          )}
-          <div ref={endOfMessagesRef} />
-        </Box>
-      )}
+      <ConversationList
+        assistantName="Constructo"
+        conversation={conversation}
+        isPending={mutation.isPending}
+        scrollIntoView={true}
+      />
+
       <TextField
         multiline
         value={prompt}

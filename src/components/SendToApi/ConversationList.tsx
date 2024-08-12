@@ -9,17 +9,22 @@ export interface ConversationMessage {
 export type Conversation = ConversationMessage[];
 
 interface Props {
+  assistantName?: string;
   conversation: Conversation;
   isPending: boolean;
   scrollIntoView?: boolean;
 }
 
 export const ConversationList = ({
+  assistantName = "ai",
   conversation,
   isPending,
   scrollIntoView = true,
 }: Props) => {
   const theme = useTheme();
+
+  const assistantColor = theme.palette.text.primary;
+  const userColor = theme.palette.text.secondary;
 
   const endOfMessagesRef = useRef<HTMLDivElement | null>(null);
   useEffect(() => {
@@ -44,25 +49,18 @@ export const ConversationList = ({
     >
       {conversation.map((message, index) => (
         <Typography
-          color={
-            message.role === "user"
-              ? theme.palette.text.primary
-              : theme.palette.text.secondary
-          }
+          color={message.role === "user" ? userColor : assistantColor}
           variant="body1"
           paragraph
           key={index}
         >
+          {message.role === "user" ? "" : `${assistantName}: `}
           <Markdown>{message.content}</Markdown>
         </Typography>
       ))}
       {isPending && (
-        <Typography
-          color={theme.palette.text.secondary}
-          variant="body1"
-          paragraph
-        >
-          ai is thinking...
+        <Typography color={assistantColor} variant="body1" paragraph>
+          {assistantName} is thinking...
         </Typography>
       )}
       <div ref={endOfMessagesRef} />
