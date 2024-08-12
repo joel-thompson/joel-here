@@ -36,7 +36,7 @@ export const TopNav = () => {
     <>
       <AppBar
         position="sticky"
-        sx={{ backgroundColor: theme.palette.primary.dark }}
+        sx={{ backgroundColor: theme.palette.primary.dark, width: "100%" }}
       >
         <Toolbar>
           <DarkModeButtonSingle />

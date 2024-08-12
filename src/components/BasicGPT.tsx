@@ -25,42 +25,11 @@ import { useLocalStorage } from "@uidotdev/usehooks";
 import apiPath from "../utils/apiPath";
 
 import { Conversation, ConversationList } from "./SendToApi/ConversationList";
+import axios, { AxiosError, AxiosResponse } from "axios";
 
 interface Response {
   message: string;
 }
-
-const fetchResponse = async ({
-  conversation,
-}: {
-  conversation: Conversation;
-}) => {
-  const response = await fetch(apiPath("/basicgpt"), {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      conversation: conversation,
-    }),
-  });
-
-  if (!response.ok) {
-    let errorMessage = "Failed to fetch";
-    try {
-      const errorBody = await response.json();
-      console.log({ errorBody });
-      errorMessage = errorBody.message;
-    } catch (e) {
-      errorMessage = "Error parsing error response:";
-      console.error("Error parsing error response:", e);
-    }
-    throw new Error(errorMessage);
-  }
-
-  const data: Response = await response.json();
-  return data;
-};
 
 export const BasicGPT = () => {
   const theme = useTheme();
@@ -76,19 +45,26 @@ export const BasicGPT = () => {
 
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
-  const mutation = useMutation({
-    mutationFn: (updatedConversation: Conversation) =>
-      fetchResponse({ conversation: updatedConversation }),
-    onSuccess: (data) => {
+  const mutation = useMutation<
+    AxiosResponse<Response>,
+    AxiosError,
+    Conversation
+  >({
+    mutationFn: (conversation) => {
+      return axios.post(apiPath("/basicgpt"), {
+        conversation,
+      });
+    },
+    onSuccess: (res) => {
       setConversation([
         ...conversation,
-        { content: data.message, role: "system" },
+        { content: res.data.message, role: "assistant" },
       ]);
     },
     onError: (error) => {
       setConversation([
         ...conversation,
-        { content: `Error - ${error.message}`, role: "system" },
+        { content: `Error - ${error.message}`, role: "assistant" },
       ]);
     },
   });

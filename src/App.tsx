@@ -42,7 +42,7 @@ const App = () => {
       <CssBaseline />
 
       <TopNav />
-      <Box sx={{ padding: "2rem" }}>
+      <Box sx={{ padding: "2rem", maxWidth: "1920px" }}>
         <Outlet />
       </Box>
     </ThemeProvider>
