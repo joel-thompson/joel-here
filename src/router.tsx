@@ -49,9 +49,7 @@ const router = createBrowserRouter([
       },
       {
         path: "basic-conv",
-        element: (
-          <SendConversationToApi apiEndpoint={apiPath("/bdasic-conv")} />
-        ),
+        element: <SendConversationToApi apiEndpoint={apiPath("/basic-conv")} />,
       },
     ],
   },
