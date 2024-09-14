@@ -12,6 +12,8 @@ import {
   ListItemButton,
   ListItemText,
   IconButton,
+  Switch,
+  FormControlLabel, // Added import for Switch and FormControlLabel
 } from "@mui/material";
 import EngineeringIcon from "@mui/icons-material/Engineering";
 import SaveIcon from "@mui/icons-material/Save";
@@ -26,7 +28,6 @@ import apiPath from "../utils/apiPath";
 
 import { Conversation, ConversationList } from "./SendToApi/ConversationList";
 import axios, { AxiosError, AxiosResponse } from "axios";
-import { useSearchParams } from "react-router-dom";
 
 interface Response {
   message: string;
@@ -34,8 +35,8 @@ interface Response {
 
 export const BasicGPT = () => {
   const theme = useTheme();
-  const [searchParams] = useSearchParams();
-  const fallback = searchParams.get("fallback");
+
+  const [fallback, setFallback] = useState<boolean>(false);
 
   const url = fallback
     ? apiPath("/basicgpt")
@@ -137,6 +138,19 @@ export const BasicGPT = () => {
 
   return (
     <Stack>
+      <Box display="flex" justifyContent="flex-start" mb={2}>
+        <FormControlLabel
+          control={
+            <Switch
+              checked={fallback}
+              onChange={(e) => setFallback(e.target.checked)}
+              color="primary"
+            />
+          }
+          label="Use Older Model"
+        />
+      </Box>
+
       <ConversationList
         assistantName="Constructo"
         conversation={conversation}
