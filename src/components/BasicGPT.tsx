@@ -26,6 +26,7 @@ import apiPath from "../utils/apiPath";
 
 import { Conversation, ConversationList } from "./SendToApi/ConversationList";
 import axios, { AxiosError, AxiosResponse } from "axios";
+import { useSearchParams } from "react-router-dom";
 
 interface Response {
   message: string;
@@ -33,6 +34,12 @@ interface Response {
 
 export const BasicGPT = () => {
   const theme = useTheme();
+  const [searchParams] = useSearchParams();
+  const fallback = searchParams.get("fallback");
+
+  const url = fallback
+    ? apiPath("/basicgpt")
+    : apiPath("/constructo-assistant");
 
   const [prompt, setPrompt] = useState<string>("");
   const [conversation, setConversation] = useState<Conversation>([]);
@@ -41,7 +48,6 @@ export const BasicGPT = () => {
   }>("saved-conversations", {});
 
   const savedConvArray = Object.keys(savedConversations);
-  console.log({ savedConvArray });
 
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
@@ -51,20 +57,23 @@ export const BasicGPT = () => {
     Conversation
   >({
     mutationFn: (conversation) => {
-      return axios.post(apiPath("/basicgpt"), {
+      return axios.post(url, {
         conversation,
       });
     },
     onSuccess: (res) => {
       setConversation([
         ...conversation,
-        { content: res.data.message, role: "assistant" },
+        { content: res.data.message || "", role: "assistant" },
       ]);
     },
     onError: (error) => {
       setConversation([
         ...conversation,
-        { content: `Error - ${error.message}`, role: "assistant" },
+        {
+          content: `Error - ${error.message || "Something went wrong"}`,
+          role: "assistant",
+        },
       ]);
     },
   });
