@@ -21,7 +21,7 @@ export const AboutMe = () => {
         Joel Thompson
       </Typography>
       <Typography variant="subtitle1" color="textSecondary">
-        Software Enginner
+        Software Engineer
       </Typography>
       <Typography variant="body1" paragraph>
         Hello! I'm a software engineer with experience in JavaScript and
