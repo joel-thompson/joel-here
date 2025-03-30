@@ -11,6 +11,7 @@ import TechPlanner from "./components/TechPlanner";
 import StructuredOutput from "./components/StructuredOutput";
 import { SendConversationToApi } from "./components/SendToApi/SendConversationToApi";
 import apiPath from "./utils/apiPath";
+import { TestBuilder } from "./components/TestBuilder";
 
 const router = createBrowserRouter([
   {
@@ -50,6 +51,10 @@ const router = createBrowserRouter([
       {
         path: "basic-conv",
         element: <SendConversationToApi apiEndpoint={apiPath("/basic-conv")} />,
+      },
+      {
+        path: "test-builder",
+        element: <TestBuilder />,
       },
     ],
   },
