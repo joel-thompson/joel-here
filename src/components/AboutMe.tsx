@@ -50,19 +50,7 @@ export const AboutMe = () => {
         sx={{ marginTop: theme.spacing(2), marginRight: theme.spacing(2) }}
         startIcon={<GitHubIcon />}
       >
-        View this site's frontend code
-      </Button>
-
-      <Button
-        variant="contained"
-        color="primary"
-        href="https://github.com/joel-thompson/joel-here-node"
-        target="_blank"
-        rel="noopener noreferrer"
-        sx={{ marginTop: theme.spacing(2) }}
-        startIcon={<GitHubIcon />}
-      >
-        View this site's backend code
+        View on GitHub
       </Button>
     </Paper>
   );
