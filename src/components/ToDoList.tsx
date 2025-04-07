@@ -2,7 +2,14 @@
 import { useState } from "react";
 import { DragDropContext, DropResult } from "@hello-pangea/dnd";
 import { TaskList } from "./TaskList";
-import { Box, Button, Stack, TextField, useTheme } from "@mui/material";
+import {
+  Box,
+  Button,
+  Stack,
+  TextField,
+  Typography,
+  useTheme,
+} from "@mui/material";
 import { useLocalStorage } from "@uidotdev/usehooks";
 
 export const ToDoList = () => {
@@ -55,6 +62,9 @@ export const ToDoList = () => {
 
   return (
     <Box>
+      <Typography variant="h5" gutterBottom>
+        To Do List with Drag and Drop and Local Storage
+      </Typography>
       <Stack
         alignItems={"center"}
         flexBasis={"content"}
