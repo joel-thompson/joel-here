@@ -6,7 +6,6 @@ import { useMutation } from "@tanstack/react-query";
 import { ErrorAlert } from "./ErrorAlert";
 import { JsonOutput } from "./JsonOutput";
 import { TextFieldWithButton } from "./TextFieldWithButton";
-
 interface FeedbackSectionProps {
   apiEndpoint: string;
   labelText?: string;
