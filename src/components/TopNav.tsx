@@ -29,8 +29,6 @@ export const TopNav = () => {
   const menuItems = [
     { text: "Home", to: "/" },
     { text: "To Do List", to: "/todo" },
-    // { text: "Civil Engineering Helper", to: "/joegpt" },
-    // { text: "Tech Planner", to: "/tech-planner" },
     {
       text: "Bike Tools",
       to: "https://www.somebiketools.com/",
