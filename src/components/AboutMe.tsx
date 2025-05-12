@@ -67,7 +67,7 @@ export const AboutMe = () => {
     //   title: "My Blog",
     //   description:
     //     "Personal blog where I share thoughts on technology, software development, and other topics that interest me.",
-    //   url: "https://www.somebiketools.com/",
+    //   url: "https://www.notesfromjoel.com/",
     //   buttonText: "Visit Blog",
     // },
     {
