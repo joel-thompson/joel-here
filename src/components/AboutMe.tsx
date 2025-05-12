@@ -62,13 +62,14 @@ export const AboutMe = () => {
   const theme = useTheme();
 
   const projects = [
-    {
-      title: "My Blog",
-      description:
-        "Personal blog where I share thoughts on technology, software development, and other topics that interest me.",
-      url: "https://www.somebiketools.com/",
-      buttonText: "Visit Blog",
-    },
+    // TODO: commenting out til my blog has more there.
+    // {
+    //   title: "My Blog",
+    //   description:
+    //     "Personal blog where I share thoughts on technology, software development, and other topics that interest me.",
+    //   url: "https://www.somebiketools.com/",
+    //   buttonText: "Visit Blog",
+    // },
     {
       title: "Bike Tools",
       description:
