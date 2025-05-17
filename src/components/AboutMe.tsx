@@ -62,14 +62,13 @@ export const AboutMe = () => {
   const theme = useTheme();
 
   const projects = [
-    // TODO: commenting out til my blog has more there.
-    // {
-    //   title: "My Blog",
-    //   description:
-    //     "Personal blog where I share thoughts on technology, software development, and other topics that interest me.",
-    //   url: "https://www.notesfromjoel.com/",
-    //   buttonText: "Visit Blog",
-    // },
+    {
+      title: "My Blog",
+      description:
+        "Personal blog where I share thoughts on technology, software development, and other topics that interest me.",
+      url: "https://www.notesfromjoel.com/",
+      buttonText: "Visit Blog",
+    },
     {
       title: "Bike Tools",
       description:
@@ -77,6 +76,13 @@ export const AboutMe = () => {
       url: "https://www.somebiketools.com/",
       buttonText: "Check out Bike Tools",
     },
+    // {
+    //   title: "Bass Fretboard Note Trainer",
+    //   description:
+    //     "A game built using Vercel's v0 AI app builder to help practice mapping sheet music notes to the bass fretboard.",
+    //   url: "https://v0-bass-game.vercel.app/",
+    //   buttonText: "Play Game",
+    // },
     {
       title: "Smith1 / Constructo",
       description:
