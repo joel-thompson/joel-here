@@ -72,7 +72,7 @@ export const AboutMe = () => {
     {
       title: "Bike Tools",
       description:
-        "A collection of useful tools and resources for mountain biking",
+        "Collection of useful tools and resources for mountain biking",
       url: "https://www.somebiketools.com/",
       buttonText: "Check out Bike Tools",
     },
