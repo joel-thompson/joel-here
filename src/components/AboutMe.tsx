@@ -76,13 +76,13 @@ export const AboutMe = () => {
       url: "https://www.somebiketools.com/",
       buttonText: "Check out Bike Tools",
     },
-    // {
-    //   title: "Bass Fretboard Note Trainer",
-    //   description:
-    //     "A game built using Vercel's v0 AI app builder to help practice mapping sheet music notes to the bass fretboard.",
-    //   url: "https://v0-bass-game.vercel.app/",
-    //   buttonText: "Play Game",
-    // },
+    {
+      title: "Bass Fretboard Note Trainer",
+      description:
+        "Basic game to help practice mapping sheet music notes to the bass fretboard. Built with Vercel's v0 AI app builder.",
+      url: "https://v0-bass-game.vercel.app/",
+      buttonText: "Play Game",
+    },
     {
       title: "Smith1 / Constructo",
       description:
