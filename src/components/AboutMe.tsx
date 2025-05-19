@@ -77,18 +77,18 @@ export const AboutMe = () => {
       buttonText: "Check out Bike Tools",
     },
     {
-      title: "Bass Fretboard Note Trainer",
-      description:
-        "Basic game to help practice mapping sheet music notes to the bass fretboard. Built with Vercel's v0 AI app builder.",
-      url: "https://v0-bass-game.vercel.app/",
-      buttonText: "Play Game",
-    },
-    {
       title: "Smith1 / Constructo",
       description:
         "AI chatbot application featuring Constructo, an AI assistant for civil engineering problems and questions.",
       url: "https://smith1.vercel.app/",
       buttonText: "Try Smith1",
+    },
+    {
+      title: "Bass Fretboard Note Trainer",
+      description:
+        "Basic game to help practice mapping sheet music notes to the bass fretboard. Built with Vercel's v0 AI app builder.",
+      url: "https://v0-bass-game.vercel.app/",
+      buttonText: "Play Game",
     },
   ];
 
