@@ -70,6 +70,13 @@ export const AboutMe = () => {
       buttonText: "Visit Blog",
     },
     {
+      title: "gi",
+      description:
+        "A command-line tool that uses AI to generate meaningful commit messages for your git changes. It analyzes your diff, understands the changes made, and creates conventional commit messages that accurately describe your work.",
+      url: "https://github.com/joel-thompson/gi",
+      buttonText: "View on GitHub",
+    },
+    {
       title: "Bike Tools",
       description:
         "Collection of useful tools and resources for mountain biking",
@@ -147,6 +154,11 @@ export const AboutMe = () => {
         sx={{ marginTop: theme.spacing(4), marginBottom: theme.spacing(2) }}
       >
         Projects
+      </Typography>
+
+      <Typography variant="body1" paragraph>
+        I've built these projects for myself and friends, check them out if
+        you're interested in seeing what I've been working on:
       </Typography>
 
       <Grid container spacing={2}>
