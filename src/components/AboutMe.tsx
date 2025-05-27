@@ -11,6 +11,7 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardActions from "@mui/material/CardActions";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
+import MenuBookIcon from "@mui/icons-material/MenuBook";
 
 interface ProjectCardProps {
   title: string;
@@ -62,13 +63,6 @@ export const AboutMe = () => {
   const theme = useTheme();
 
   const projects = [
-    {
-      title: "My Blog",
-      description:
-        "Personal blog where I share thoughts on technology, software development, and other topics that interest me.",
-      url: "https://www.notesfromjoel.com/",
-      buttonText: "Visit Blog",
-    },
     {
       title: "gi",
       description:
@@ -146,6 +140,19 @@ export const AboutMe = () => {
           startIcon={<GitHubIcon />}
         >
           Find me on GitHub
+        </Button>
+
+        {/* // TODO: Add blog back in */}
+        <Button
+          variant="contained"
+          color="primary"
+          href="https://www.notesfromjoel.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+          sx={{ marginTop: theme.spacing(2), marginRight: theme.spacing(2) }}
+          startIcon={<MenuBookIcon />}
+        >
+          Visit My Blog
         </Button>
       </Paper>
 
