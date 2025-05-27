@@ -112,10 +112,10 @@ export const AboutMe = () => {
           Software Engineer
         </Typography>
         <Typography variant="body1" paragraph>
-          Hello! I'm a software engineer with experience in JavaScript and
-          TypeScript, specializing in React for frontend work. I also have
-          backend experience working with Node.js/Express, Go, and Ruby on
-          Rails.
+          Hello! I'm a software engineer focused on building modern applications
+          with React and Next.js. Lately, I've been working on AI integration
+          projects. I have experience working with JavaScript / TypeScript,
+          Golang, and Ruby / Ruby on Rails.
         </Typography>
 
         <Button
