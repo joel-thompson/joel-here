@@ -5,6 +5,7 @@ import { Basic } from "./components/Basic";
 import { StoryWriter } from "./components/StoryWriter";
 import { ToDoList } from "./components/ToDoList";
 import ErrorPage from "./error-page";
+import { Resume } from "./components/Resume/Resume";
 
 const router = createBrowserRouter([
   {
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
       {
         path: "story-writer",
         element: <StoryWriter />,
+      },
+      {
+        path: "resume",
+        element: <Resume />,
       },
     ],
   },
