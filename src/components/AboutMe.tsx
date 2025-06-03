@@ -142,8 +142,18 @@ export const AboutMe = () => {
           Find me on GitHub
         </Button>
 
-        {/* // TODO: Add blog back in */}
         <Button
+          variant="contained"
+          color="primary"
+          href="/resume"
+          sx={{ marginTop: theme.spacing(2), marginRight: theme.spacing(2) }}
+          startIcon={<MenuBookIcon />}
+        >
+          My Resume
+        </Button>
+
+        {/* // TODO: Add blog back in */}
+        {/* <Button
           variant="contained"
           color="primary"
           href="https://www.notesfromjoel.com/"
@@ -153,7 +163,7 @@ export const AboutMe = () => {
           startIcon={<MenuBookIcon />}
         >
           Visit My Blog
-        </Button>
+        </Button> */}
       </Paper>
 
       <Typography

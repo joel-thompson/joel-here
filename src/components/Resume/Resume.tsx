@@ -100,23 +100,26 @@ export const Resume = () => {
           borderRadius: `${theme.shape.borderRadius}px`,
         }}
       >
-        {/* Header */}
-        <Box sx={{ mb: 5 }}>
+        {/* Header - Name and Contact */}
+        <Box sx={{ mb: 3 }}>
           <Typography variant="h3" component="h1" gutterBottom>
             {resumeData.personalInfo.name}
           </Typography>
           <Typography variant="body1">
-            {resumeData.personalInfo.phone} • {resumeData.personalInfo.email} •{" "}
-            {resumeData.personalInfo.website}
-          </Typography>
-          <Typography variant="body1" paragraph sx={{ mt: 2, mb: 0 }}>
-            {resumeData.summary}
+            {resumeData.personalInfo.email} - {resumeData.personalInfo.website}
           </Typography>
         </Box>
 
+        {/* Summary Section - Full Width */}
+        <Box sx={{ mb: 8 }}>
+          <Typography variant="body1">{resumeData.summary}</Typography>
+        </Box>
+
+        {/* Main Content Grid */}
         <Grid container spacing={4}>
-          {/* Experience Section */}
+          {/* Left Column - Experience */}
           <Grid item xs={12} md={8} sx={{ pr: { xs: 0, md: 3 } }}>
+            {/* Experience Heading */}
             <Typography variant="h5" color="primary.main" sx={{ mb: 2 }}>
               Experience
             </Typography>
@@ -132,23 +135,24 @@ export const Resume = () => {
             md={4}
             sx={{
               pl: { xs: 0, md: 4 },
-              position: 'relative',
-              '&::before': {
+              position: "relative",
+              "&::before": {
                 content: '""',
-                position: 'absolute',
+                position: "absolute",
                 left: { xs: 0, md: 16 },
                 top: 0,
                 bottom: 0,
-                width: '1px',
+                width: "1px",
                 backgroundColor: theme.palette.divider,
-                display: { xs: 'none', md: 'block' }
-              }
+                display: { xs: "none", md: "block" },
+              },
             }}
           >
             {/* Skills Section */}
             <Box
               sx={{
-                position: "relative"
+                position: "relative",
+                // mt: "103px", // Align Skills heading with the CircleCI heading
               }}
             >
               <Typography variant="h5" color="primary.main" sx={{ mb: 2 }}>
@@ -175,7 +179,7 @@ export const Resume = () => {
             <Box
               sx={{
                 mt: 4,
-                position: "relative"
+                position: "relative",
               }}
             >
               <Typography variant="h5" color="primary.main" sx={{ mb: 2 }}>
