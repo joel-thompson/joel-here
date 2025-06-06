@@ -1,11 +1,10 @@
 {
   "personalInfo": {
     "name": "Joel Thompson",
-    "phone": "916.337.1795",
     "email": "joelthomps90@gmail.com",
     "website": "byjoelthompson.com"
   },
-  "summary": "Software Engineer with 12+ years building scalable web applications. Expertise in React/Next.js development and AI-powered tools. Proven track record of system architecture and delivering reliable production systems.",
+  "summary": "Senior Software Engineer with 12+ years building scalable web applications. Led AI initiatives at CircleCI including onboarding chatbot and open-source MCP server for LLM integrations. Strong experience in React/Next.js development and cross-functional technical leadership.",
   "experience": [
     {
       "company": "CircleCI",
@@ -13,9 +12,11 @@
       "startDate": "September 2020",
       "endDate": "Present",
       "responsibilities": [
-        "Architected and implemented AI-powered pipeline assistant chatbot from feasibility analysis through production deployment. Built and open-sourced MCP server for CircleCI, enabling agent-based tools integration for the developer community.",
-        "Spearheaded project creation flow overhaul and authentication system modernization across multiple teams. Drove UI component standardization as project lead and accelerate junior developer productivity through weekly 1:1 mentoring.",
-        "Maintain high system reliability through monthly on-call rotation and technical decision-making in architecture meetings, sprint facilitation, and strategic planning to improve project delivery predictability."
+        "Architected and deployed AI-powered onboarding chatbot helping new users create their first pipeline on CircleCI platform.",
+        "Built and open-sourced MCP server enabling developers to integrate CircleCI API into LLM-based workflows.",
+        "Led project creation flow overhaul and authentication system migration to modern Auth0 implementation, reducing custom code maintenance.",
+        "Maintain production reliability through monthly on-call rotation and contribute to technical architecture decisions. Facilitate sprint planning to improve project delivery predictability.",
+        "Accelerate junior developer productivity through structured weekly 1:1 mentoring sessions."
       ]
     },
     {
@@ -38,8 +39,9 @@
         }
       ],
       "responsibilities": [
-        "Architected and implemented behavioral experimentation framework for marketing site with real-time visitor segmentation. Built comprehensive A/B testing infrastructure for Inbox onboarding flows with feature flag systems and statistical validation.",
-        "Coordinated cross-functional pricing model initiative across engineering, marketing, and design teams. Led agile ceremonies and mentored team members as part of engineering leadership rotation."
+        "Progressed from Support Engineer to Product Engineer, expanding technical responsibilities across customer-facing and internal systems.",
+        "Built behavioral experimentation framework for marketing site with real-time visitor segmentation. Developed A/B testing infrastructure for Inbox onboarding flows with feature flag system.",
+        "Coordinated cross-functional pricing model initiative across engineering, marketing, and design teams. Participated in engineering leadership rotation program and mentored team members."
       ]
     },
     {
@@ -48,23 +50,25 @@
       "startDate": "September 2012",
       "endDate": "February 2016",
       "responsibilities": [
-        "Owned build and release pipeline for core SaaS product and established company-wide bug tracking infrastructure. Developed .NET C# applications, managed SQL database operations, and provided post-sales technical support.",
-        "Led technical planning and execution to extend marketing site experimentation framework, adding support for running experiments based on visitor behavior patterns."
+        "Owned build and release pipeline for core SaaS product and established company-wide bug tracking infrastructure.",
+        "Developed .NET C# applications, managed SQL database operations, and provided post-sales technical support."
       ]
     }
   ],
   "skills": {
-    "languages": ["Typescript / Javascript", "GoLang", "Ruby", "Python"],
-    "frontend": ["NextJS", "React"],
+    "languages": ["TypeScript/JavaScript", "Go", "Ruby", "Python"],
+    "frontend": ["Next.js", "React"],
     "backend": ["Express.js", "Gin", "Ruby on Rails"],
-    "platformArchitecture": [
-      "MCP Server Development",
-      "System Architecture",
-      "On-call incident response",
-      "Vercel",
-      "Netlify"
+    "devops": [
+      "CI/CD Pipeline Design",
+      "Production Monitoring",
+      "Incident Response"
     ],
-    "tools": ["Cursor", "Windsurf", "Aider"]
+    "ai_development": [
+      "LLM Integration",
+      "MCP Server Development",
+      "AI-Assisted Development Tools (Cursor, Windsurf, Aider)"
+    ]
   },
   "education": {
     "institution": "UC Santa Cruz",

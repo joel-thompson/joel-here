@@ -169,10 +169,13 @@ export const Resume = () => {
               />
               <SkillSection title="Backend" items={resumeData.skills.backend} />
               <SkillSection
-                title="Platform & Architecture"
-                items={resumeData.skills.platformArchitecture}
+                title="DevOps"
+                items={resumeData.skills.devops}
               />
-              <SkillSection title="Tools" items={resumeData.skills.tools} />
+              <SkillSection
+                title="AI Development"
+                items={resumeData.skills.ai_development}
+              />
             </Box>
 
             {/* Education Section */}
