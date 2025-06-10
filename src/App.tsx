@@ -1,9 +1,9 @@
 import CssBaseline from "@mui/material/CssBaseline";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
-import { useContext } from "react";
+import { Suspense, useContext } from "react";
 import { DarkModeContext, DarkModeProvider } from "./contexts/DarkModeContext";
 import { TopNav } from "./components/TopNav";
-import { Box } from "@mui/material";
+import { Box, CircularProgress } from "@mui/material";
 import { Outlet } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
@@ -19,6 +19,21 @@ const OuterApp = () => {
         <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>
     </DarkModeProvider>
+  );
+};
+
+const FallbackComponent = () => {
+  return (
+    <Box
+      sx={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        height: "80vh",
+      }}
+    >
+      <CircularProgress />
+    </Box>
   );
 };
 
@@ -43,7 +58,9 @@ const App = () => {
 
       <TopNav />
       <Box sx={{ padding: "2rem", maxWidth: "1920px" }}>
-        <Outlet />
+        <Suspense fallback={<FallbackComponent />}>
+          <Outlet />
+        </Suspense>
       </Box>
     </ThemeProvider>
   );
