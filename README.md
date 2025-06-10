@@ -5,5 +5,5 @@ Hello! This is my portfolio / sandbox project where I have some information abou
 # Running the server
 
 ```
-yarn dev
+pnpm dev
 ```
