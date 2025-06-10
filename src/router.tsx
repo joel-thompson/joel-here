@@ -2,8 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import App from "./App";
 import { AboutMe } from "./components/AboutMe";
 import { Basic } from "./components/Basic";
-import { StoryWriter } from "./components/StoryWriter";
-import { ToDoList } from "./components/ToDoList";
+import { ToDoList } from "./components/Todo/ToDoList";
 import ErrorPage from "./error-page";
 import { Resume } from "./components/Resume/Resume";
 
@@ -21,10 +20,6 @@ const router = createBrowserRouter([
       {
         path: "todo",
         element: <ToDoList />,
-      },
-      {
-        path: "story-writer",
-        element: <StoryWriter />,
       },
       {
         path: "resume",
