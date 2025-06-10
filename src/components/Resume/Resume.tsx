@@ -46,19 +46,24 @@ const ExperienceItem: React.FC<ExperienceItemProps> = ({ experience }) => {
       )}
 
       {experience.positions?.map((pos) => (
-          <Typography
-            key={pos.title}
-            component="div"
-            color="primary.main"
-            fontWeight="bold"
-            sx={{ mb: 0.5 }}
-          >
-            {pos.title} - {pos.startDate} to {pos.endDate}
-          </Typography>
-        ))}
+        <Typography
+          key={pos.title}
+          component="div"
+          color="primary.main"
+          fontWeight="bold"
+          sx={{ mb: 0.5 }}
+        >
+          {pos.title} - {pos.startDate} to {pos.endDate}
+        </Typography>
+      ))}
 
       {experience.responsibilities.map((responsibility) => (
-        <Typography key={responsibility} variant="body1" paragraph sx={{ mb: 1 }}>
+        <Typography
+          key={responsibility}
+          variant="body1"
+          paragraph
+          sx={{ mb: 1 }}
+        >
           {responsibility}
         </Typography>
       ))}
@@ -119,7 +124,11 @@ export const Resume = () => {
           {/* Left Column - Experience */}
           <Grid item xs={12} md={8} sx={{ pr: { xs: 0, md: 3 } }}>
             {/* Experience Heading */}
-            <Typography variant="h5" color="primary.main" sx={{ mb: 2 }}>
+            <Typography
+              variant="h5"
+              color="primary.main"
+              sx={{ mb: 2, fontWeight: "bold" }}
+            >
               Experience
             </Typography>
             {resumeData.experience.map((exp) => (
@@ -154,7 +163,11 @@ export const Resume = () => {
                 // mt: "103px", // Align Skills heading with the CircleCI heading
               }}
             >
-              <Typography variant="h5" color="primary.main" sx={{ mb: 2 }}>
+              <Typography
+                variant="h5"
+                color="primary.main"
+                sx={{ mb: 2, fontWeight: "bold" }}
+              >
                 Skills & Expertise
               </Typography>
 
@@ -181,7 +194,11 @@ export const Resume = () => {
                 position: "relative",
               }}
             >
-              <Typography variant="h5" color="primary.main" sx={{ mb: 2 }}>
+              <Typography
+                variant="h5"
+                color="primary.main"
+                sx={{ mb: 2, fontWeight: "bold" }}
+              >
                 Education
               </Typography>
               <Typography variant="h6">
