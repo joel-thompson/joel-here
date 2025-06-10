@@ -1,5 +1,5 @@
 import CssBaseline from "@mui/material/CssBaseline";
-import { ThemeProvider, createTheme } from "@mui/material/styles";
+import { ThemeProvider } from "@mui/material/styles"; // Removed createTheme
 import { use } from "react";
 import { DarkModeProvider } from "./contexts/DarkModeContext";
 import { DarkModeContext } from "./contexts/themeContext";
@@ -11,22 +11,16 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 const queryClient = new QueryClient();
 
-const AppLayout = () => {
-    const { darkMode } = use(DarkModeContext);
-  const darkTheme = createTheme({
-    palette: {
-      mode: "dark",
-    },
-  });
+import { getAppTheme } from "./theme"; // Import the new theme function
 
-  const theme = createTheme({
-    palette: {
-      mode: "light",
-    },
-  });
+const AppLayout = () => {
+  const { darkMode } = use(DarkModeContext);
+
+  // Generate the theme based on the darkMode state
+  const currentTheme = getAppTheme(darkMode ? 'dark' : 'light');
 
   return (
-    <ThemeProvider theme={darkMode ? darkTheme : theme}>
+    <ThemeProvider theme={currentTheme}>
       <CssBaseline />
 
       <TopNav />
