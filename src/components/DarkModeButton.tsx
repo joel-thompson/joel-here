@@ -1,11 +1,11 @@
-import { useContext } from "react";
+import { use } from "react";
 import { DarkModeContext } from "../contexts/themeContext";
 import Switch from "@mui/material/Switch";
 import { Stack, Typography, useTheme } from "@mui/material";
 import { DarkMode, LightMode } from "@mui/icons-material";
 
 export const DarkModeButton = () => {
-  const { darkMode, setDarkMode } = useContext(DarkModeContext);
+  const { darkMode, setDarkMode } = use(DarkModeContext);
   return (
     <Switch
       checked={darkMode}
@@ -18,7 +18,7 @@ export const DarkModeButton = () => {
 };
 
 export const DarkModeButtonSingle = () => {
-  const { darkMode, setDarkMode } = useContext(DarkModeContext);
+  const { darkMode, setDarkMode } = use(DarkModeContext);
   const theme = useTheme();
   const Icon = darkMode ? LightMode : DarkMode;
 
