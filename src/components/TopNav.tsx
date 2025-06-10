@@ -8,13 +8,13 @@ export const TopNav = () => {
   return (
     <>
       <AppBar
-        position="static"
+        position="sticky"
         sx={{ backgroundColor: theme.palette.primary.dark, width: "100%" }}
       >
         <Toolbar>
-          <IconButton 
-            edge="start" 
-            color="inherit" 
+          <IconButton
+            edge="start"
+            color="inherit"
             aria-label="home"
             href="/"
             sx={{ color: theme.palette.background.default }}
