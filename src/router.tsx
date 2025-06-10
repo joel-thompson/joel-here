@@ -1,22 +1,10 @@
-import { lazy } from "react";
 import { createBrowserRouter } from "react-router-dom";
 import App from "./App";
 import ErrorPage from "./error-page";
 import { AboutMe } from "./components/AboutMe";
-
-const Basic = lazy(() =>
-  import("./components/Basic").then((module) => ({ default: module.Basic }))
-);
-const ToDoList = lazy(() =>
-  import("./components/Todo/ToDoList").then((module) => ({
-    default: module.ToDoList,
-  }))
-);
-const Resume = lazy(() =>
-  import("./components/Resume/Resume").then((module) => ({
-    default: module.Resume,
-  }))
-);
+import { Basic } from "./components/Basic";
+import { ToDoList } from "./components/Todo/ToDoList";
+import { Resume } from "./components/Resume/Resume";
 
 const router = createBrowserRouter([
   {
