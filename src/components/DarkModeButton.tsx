@@ -19,14 +19,10 @@ export const DarkModeButton = () => {
 
 export const DarkModeButtonSingle = () => {
   const { darkMode, setDarkMode } = use(DarkModeContext);
-  const theme = useTheme();
   const Icon = darkMode ? LightMode : DarkMode;
 
   return (
-    <Icon
-      sx={{ color: theme.palette.background.default, cursor: "pointer" }}
-      onClick={() => setDarkMode(!darkMode)}
-    />
+    <Icon sx={{ cursor: "pointer" }} onClick={() => setDarkMode(!darkMode)} />
   );
 };
 

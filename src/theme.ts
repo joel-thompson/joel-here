@@ -37,7 +37,7 @@ export const getAppTheme = (mode: PaletteMode) => {
               main: "#1976d2", // Blue
             },
             secondary: {
-              main: "#dc004e", // Pink
+              main: "#fb8c00", // Deep Orange (contrasts well with blue)
             },
             background: {
               default: "#f4f6f8",
@@ -50,7 +50,7 @@ export const getAppTheme = (mode: PaletteMode) => {
               main: "#64b5f6", // Lighter blue for dark mode
             },
             secondary: {
-              main: "#f06292", // Lighter pink for dark mode
+              main: "#4db6ac", // Lighter teal for dark mode
             },
             background: {
               default: "#121212",

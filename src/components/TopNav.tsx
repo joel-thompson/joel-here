@@ -1,24 +1,13 @@
-import { AppBar, Toolbar, useTheme, IconButton, Box } from "@mui/material";
+import { AppBar, Toolbar, IconButton, Box } from "@mui/material";
 import { DarkModeButtonSingle } from "./DarkModeButton";
 import { Home } from "@mui/icons-material";
 
 export const TopNav = () => {
-  const theme = useTheme();
-
   return (
     <>
-      <AppBar
-        position="sticky"
-        sx={{ backgroundColor: theme.palette.primary.dark, width: "100%" }}
-      >
+      <AppBar position="sticky" color="primary">
         <Toolbar>
-          <IconButton
-            edge="start"
-            color="inherit"
-            aria-label="home"
-            href="/"
-            sx={{ color: theme.palette.background.default }}
-          >
+          <IconButton edge="start" color="inherit" aria-label="home" href="/">
             <Home />
           </IconButton>
           <Box sx={{ flexGrow: 1 }} />
