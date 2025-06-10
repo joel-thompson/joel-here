@@ -1,7 +1,8 @@
 import CssBaseline from "@mui/material/CssBaseline";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { Suspense, useContext } from "react";
-import { DarkModeContext, DarkModeProvider } from "./contexts/DarkModeContext";
+import { DarkModeProvider } from "./contexts/DarkModeContext";
+import { DarkModeContext } from "./contexts/themeContext";
 import { TopNav } from "./components/TopNav";
 import { Box, CircularProgress } from "@mui/material";
 import { Outlet } from "react-router-dom";
