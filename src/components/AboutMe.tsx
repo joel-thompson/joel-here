@@ -151,19 +151,6 @@ export const AboutMe = () => {
         >
           My Resume
         </Button>
-
-        {/* // TODO: Add blog back in */}
-        {/* <Button
-          variant="contained"
-          color="primary"
-          href="https://www.notesfromjoel.com/"
-          target="_blank"
-          rel="noopener noreferrer"
-          sx={{ marginTop: theme.spacing(2), marginRight: theme.spacing(2) }}
-          startIcon={<MenuBookIcon />}
-        >
-          Visit My Blog
-        </Button> */}
       </Paper>
 
       <Typography
