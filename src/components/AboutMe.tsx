@@ -2,7 +2,7 @@ import Avatar from "@mui/material/Avatar";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import { useTheme } from "@mui/material/styles";
-import joelAvatar from "../assets/jpic.jpg";
+
 import Button from "@mui/material/Button";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import GitHubIcon from "@mui/icons-material/GitHub";
@@ -102,7 +102,7 @@ export const AboutMe = () => {
       >
         <Avatar
           alt="Joel Thompson"
-          src={joelAvatar}
+          src="/images/jpic.jpg"
           sx={{ width: 56, height: 56, margin: theme.spacing(2) }}
         />
         <Typography variant="h4" gutterBottom>

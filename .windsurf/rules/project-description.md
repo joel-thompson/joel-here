@@ -8,3 +8,5 @@ trigger: always_on
 - materialUI 5
 - tanstack-query 5 (react-query)
 - pnpm
+
+I already have the dev server running, don't run it for me.
