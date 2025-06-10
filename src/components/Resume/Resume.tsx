@@ -45,10 +45,9 @@ const ExperienceItem: React.FC<ExperienceItemProps> = ({ experience }) => {
         </Typography>
       )}
 
-      {experience.positions &&
-        experience.positions.map((pos, index) => (
+      {experience.positions?.map((pos) => (
           <Typography
-            key={index}
+            key={pos.title}
             component="div"
             color="primary.main"
             fontWeight="bold"
@@ -58,8 +57,8 @@ const ExperienceItem: React.FC<ExperienceItemProps> = ({ experience }) => {
           </Typography>
         ))}
 
-      {experience.responsibilities.map((responsibility, index) => (
-        <Typography key={index} variant="body1" paragraph sx={{ mb: 1 }}>
+      {experience.responsibilities.map((responsibility) => (
+        <Typography key={responsibility} variant="body1" paragraph sx={{ mb: 1 }}>
           {responsibility}
         </Typography>
       ))}
@@ -78,8 +77,8 @@ const SkillSection: React.FC<SkillSectionProps> = ({ title, items }) => (
       {title}:
     </Typography>
     <Box component="ul" sx={{ mt: 0.5, pl: 2 }}>
-      {items.map((item, index) => (
-        <Typography key={index} component="li" variant="body1">
+      {items.map((item) => (
+        <Typography key={item} component="li" variant="body1">
           {item}
         </Typography>
       ))}
@@ -123,8 +122,8 @@ export const Resume = () => {
             <Typography variant="h5" color="primary.main" sx={{ mb: 2 }}>
               Experience
             </Typography>
-            {resumeData.experience.map((exp, index) => (
-              <ExperienceItem key={index} experience={exp} />
+            {resumeData.experience.map((exp) => (
+              <ExperienceItem key={exp.company} experience={exp} />
             ))}
           </Grid>
 

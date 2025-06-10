@@ -166,8 +166,8 @@ export const AboutMe = () => {
       </Typography>
 
       <Grid container spacing={2}>
-        {projects.map((project, index) => (
-          <Grid item xs={12} sm={6} key={index}>
+        {projects.map((project) => (
+          <Grid item xs={12} sm={6} key={project.url}>
             <ProjectCard
               title={project.title}
               description={project.description}

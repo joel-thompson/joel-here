@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { DarkModeContext } from "../contexts/DarkModeContext";
+import { DarkModeContext } from "../contexts/themeContext";
 import Switch from "@mui/material/Switch";
 import { Stack, Typography, useTheme } from "@mui/material";
 import { DarkMode, LightMode } from "@mui/icons-material";

@@ -1,21 +1,18 @@
 import { useLocalStorage } from "@uidotdev/usehooks";
-import React, { ReactNode, createContext } from "react";
-
-// Create the DarkModeContext
-export const DarkModeContext = createContext<{
-  darkMode: boolean;
-  setDarkMode: React.Dispatch<React.SetStateAction<boolean>>;
-}>({
-  darkMode: false,
-  setDarkMode: () => {},
-});
+import { ReactNode, useMemo } from "react";
+import { DarkModeContext } from './themeContext';
 
 // Create the DarkModeProvider component
 export const DarkModeProvider = ({ children }: { children: ReactNode }) => {
   const [darkMode, setDarkMode] = useLocalStorage("dark-mode", false);
 
+  const contextValue = useMemo(() => ({
+    darkMode,
+    setDarkMode,
+  }), [darkMode, setDarkMode]);
+
   return (
-    <DarkModeContext.Provider value={{ darkMode, setDarkMode }}>
+    <DarkModeContext.Provider value={contextValue}>
       {children}
     </DarkModeContext.Provider>
   );
