@@ -1,5 +1,6 @@
 import Avatar from "@mui/material/Avatar";
 import Paper from "@mui/material/Paper";
+import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { useTheme } from "@mui/material/styles";
 
@@ -118,39 +119,71 @@ export const AboutMe = () => {
           Golang, and Ruby / Ruby on Rails.
         </Typography>
 
-        <Button
-          variant="contained"
-          color="primary"
-          href="https://www.linkedin.com/in/joel-thompson-5485b824/"
-          target="_blank"
-          rel="noopener noreferrer"
-          sx={{ marginTop: theme.spacing(2), marginRight: theme.spacing(2) }}
-          startIcon={<LinkedInIcon />}
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "flex-start",
+            flexWrap: "wrap",
+            gap: theme.spacing(1),
+          }}
         >
-          Connect on LinkedIn
-        </Button>
+          <Button
+            variant="contained"
+            color="primary"
+            href="https://www.linkedin.com/in/joel-thompson-5485b824/"
+            target="_blank"
+            rel="noopener noreferrer"
+            sx={{
+              marginTop: theme.spacing(2),
+              flexShrink: 0,
+            }}
+            startIcon={<LinkedInIcon />}
+          >
+            Connect on LinkedIn
+          </Button>
 
-        <Button
-          variant="contained"
-          color="primary"
-          href="https://github.com/joel-thompson"
-          target="_blank"
-          rel="noopener noreferrer"
-          sx={{ marginTop: theme.spacing(2), marginRight: theme.spacing(2) }}
-          startIcon={<GitHubIcon />}
-        >
-          Find me on GitHub
-        </Button>
+          <Button
+            variant="contained"
+            color="primary"
+            href="https://github.com/joel-thompson"
+            target="_blank"
+            rel="noopener noreferrer"
+            sx={{
+              marginTop: theme.spacing(2),
+              flexShrink: 0,
+            }}
+            startIcon={<GitHubIcon />}
+          >
+            Find me on GitHub
+          </Button>
 
-        <Button
-          variant="contained"
-          color="primary"
-          href="/resume"
-          sx={{ marginTop: theme.spacing(2), marginRight: theme.spacing(2) }}
-          startIcon={<MenuBookIcon />}
-        >
-          My Resume
-        </Button>
+          <Button
+            variant="contained"
+            color="primary"
+            href="/resume"
+            sx={{
+              marginTop: theme.spacing(2),
+              flexShrink: 0,
+            }}
+            startIcon={<MenuBookIcon />}
+          >
+            My Resume
+          </Button>
+          {/* TODO: Add bookmarks once there are more */}
+          {/* <Button
+            variant="contained"
+            color="primary"
+            href="/bookmarks"
+            sx={{
+              marginTop: theme.spacing(2),
+              flexShrink: 0,
+            }}
+            startIcon={<MenuBookIcon />}
+          >
+            Bookmarks
+          </Button> */}
+        </Box>
       </Paper>
 
       <Typography

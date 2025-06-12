@@ -1,0 +1,22 @@
+{
+  "tools": [
+    {
+      "name": "Cursor",
+      "url": "https://docs.cursor.com"
+    },
+    {
+      "name": "Ink",
+      "url": "https://github.com/vadimdemedes/ink"
+    }
+  ],
+  "reads": [
+    {
+      "name": "Simon Willison's Weblog",
+      "url": "https://simonwillison.net/"
+    },
+    {
+      "name": "AI-2027",
+      "url": "https://ai-2027.com/"
+    }
+  ]
+}

@@ -30,32 +30,28 @@ interface ExperienceItemProps {
 const ExperienceItem: React.FC<ExperienceItemProps> = ({ experience }) => {
   return (
     <Box sx={{ mb: 3 }}>
-      <Typography variant="h6" sx={{ mb: 1 }}>
+      <Typography variant="h6" sx={{ mb: 0.5 }}>
         {experience.company}
       </Typography>
 
-      {experience.title && (
-        <Typography
-          component="div"
-          color="primary.main"
-          fontWeight="bold"
-          sx={{ mb: 0.5 }}
-        >
-          {experience.title} - {experience.startDate} to {experience.endDate}
-        </Typography>
-      )}
+      <Box sx={{ mb: 2 }}>
+        {experience.title && (
+          <Typography component="div" fontWeight="bold" sx={{ mb: 0.5 }}>
+            {experience.title}: {experience.startDate} - {experience.endDate}
+          </Typography>
+        )}
 
-      {experience.positions?.map((pos) => (
-        <Typography
-          key={pos.title}
-          component="div"
-          color="primary.main"
-          fontWeight="bold"
-          sx={{ mb: 0.5 }}
-        >
-          {pos.title} - {pos.startDate} to {pos.endDate}
-        </Typography>
-      ))}
+        {experience.positions?.map((pos) => (
+          <Typography
+            key={pos.title}
+            component="div"
+            fontWeight="bold"
+            sx={{ mb: 0.5 }}
+          >
+            {pos.title}: {pos.startDate} - {pos.endDate}
+          </Typography>
+        ))}
+      </Box>
 
       {experience.responsibilities.map((responsibility) => (
         <Typography
