@@ -1,0 +1,14 @@
+{
+  "tools": [
+    {
+      "name": "Cursor",
+      "url": "https://docs.cursor.com"
+    }
+  ],
+  "reads": [
+    {
+      "name": "Simon Willison's Weblog",
+      "url": "https://simonwillison.net/"
+    }
+  ]
+}

@@ -151,6 +151,16 @@ export const AboutMe = () => {
         >
           My Resume
         </Button>
+
+        <Button
+          variant="contained"
+          color="primary"
+          href="/bookmarks"
+          sx={{ marginTop: theme.spacing(2), marginRight: theme.spacing(2) }}
+          startIcon={<MenuBookIcon />}
+        >
+          Bookmarks
+        </Button>
       </Paper>
 
       <Typography

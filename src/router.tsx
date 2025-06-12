@@ -5,6 +5,7 @@ import { AboutMe } from "./components/AboutMe";
 import { Basic } from "./components/Basic";
 import { ToDoList } from "./components/Todo/ToDoList";
 import { Resume } from "./components/Resume/Resume";
+import { Bookmarks } from "./components/Bookmarks/Bookmarks";
 
 const router = createBrowserRouter([
   {
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
       {
         path: "resume",
         element: <Resume />,
+      },
+      {
+        path: "bookmarks",
+        element: <Bookmarks />,
       },
     ],
   },
