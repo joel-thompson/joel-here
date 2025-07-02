@@ -170,8 +170,7 @@ export const AboutMe = () => {
           >
             My Resume
           </Button>
-          {/* TODO: Add bookmarks once there are more */}
-          {/* <Button
+          <Button
             variant="contained"
             color="primary"
             href="/bookmarks"
@@ -182,7 +181,7 @@ export const AboutMe = () => {
             startIcon={<MenuBookIcon />}
           >
             Bookmarks
-          </Button> */}
+          </Button>
         </Box>
       </Paper>
 
