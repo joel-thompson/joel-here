@@ -72,25 +72,11 @@ export const AboutMe = () => {
       buttonText: "View on GitHub",
     },
     {
-      title: "Bike Tools",
+      title: "training-tracker",
       description:
-        "Collection of useful tools and resources for mountain biking",
-      url: "https://www.somebiketools.com/",
-      buttonText: "Check out Bike Tools",
-    },
-    {
-      title: "Smith1 / Constructo",
-      description:
-        "AI chatbot application featuring Constructo, an AI assistant for civil engineering problems and questions.",
-      url: "https://smith1.vercel.app/",
-      buttonText: "Try Smith1",
-    },
-    {
-      title: "Bass Fretboard Note Trainer",
-      description:
-        "Basic game to help practice mapping sheet music notes to the bass fretboard. Built with Vercel's v0 AI app builder.",
-      url: "https://v0-bass-game.vercel.app/",
-      buttonText: "Play Game",
+        "A web app to track jiu jitsu training sessions. Track your session, set goals, map out your techniques. Built with Typescript, React, and Hono.",
+      url: "https://github.com/joel-thompson/training-tracker",
+      buttonText: "View on GitHub",
     },
   ];
 
